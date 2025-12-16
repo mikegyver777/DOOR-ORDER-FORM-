@@ -1,0 +1,2598 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aloha Doors - Door Order System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #8B0000, #DC143C);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 40px;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #8B0000;
+        }
+
+        .btn-primary:hover {
+            background: #f0f0f0;
+        }
+
+        .btn-success {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #15803d;
+        }
+
+        .btn-blue {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-blue:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #e5e7eb;
+            color: #374151;
+        }
+
+        .btn-outline:hover {
+            border-color: #8B0000;
+            color: #8B0000;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .tab {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tab-btn {
+            padding: 10px 16px;
+            border: none;
+            background: #e5e7eb;
+            color: #374151;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .tab-btn.active {
+            background: #8B0000;
+            color: white;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #d1d5db;
+        }
+
+        .tab-qty {
+            background: rgba(255,255,255,0.3);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 20px;
+        }
+
+        @media (max-width: 1100px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 16px;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8B0000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card h2 .icon {
+            font-size: 18px;
+        }
+
+        /* Forms */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .form-row-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .form-row-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #8B0000;
+        }
+
+        input[type="number"] {
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .help-text {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        /* Brand/Model Row */
+        .brand-model-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        /* Pricing Section */
+        .pricing-row {
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr 1fr;
+            gap: 8px;
+            align-items: end;
+            padding: 10px;
+            background: #f9fafb;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .pricing-row .cost-input {
+            background: #fef3c7;
+        }
+
+        .pricing-row .markup-input {
+            background: #e0f2fe;
+        }
+
+        .pricing-row .sell-price {
+            background: #d1fae5;
+            font-weight: 600;
+        }
+
+        .pricing-row .labor-input {
+            background: #fce7f3;
+        }
+
+        /* Summary Panel */
+        .summary-panel {
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary-header {
+            background: #8B0000;
+            color: white;
+            padding: 15px;
+            border-radius: 12px 12px 0 0;
+            margin: -20px -20px 15px -20px;
+        }
+
+        .summary-header h2 {
+            color: white;
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .quantity-display {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .quantity-display .qty-number {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .quantity-display .qty-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .summary-item {
+            border-left: 3px solid #8B0000;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            background: #fafafa;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .summary-category {
+            font-size: 10px;
+            font-weight: 700;
+            color: #8B0000;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-item-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 3px 0;
+        }
+
+        .summary-details {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .summary-price {
+            font-size: 13px;
+            font-weight: 600;
+            color: #16a34a;
+            margin-top: 4px;
+        }
+
+        /* Totals */
+        .totals-section {
+            border-top: 2px solid #e5e7eb;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+        }
+
+        .total-row.subtotal {
+            color: #6b7280;
+        }
+
+        .total-row.grand-total {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1a1a1a;
+            border-top: 2px solid #1a1a1a;
+            padding-top: 10px;
+            margin-top: 5px;
+        }
+
+        .total-value {
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        /* Hardware Items */
+        .hardware-list {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .hardware-item {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            background: #fafafa;
+        }
+
+        .hardware-item:last-child {
+            border-bottom: none;
+        }
+
+        .hardware-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .hardware-item-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: #374151;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            max-width: 900px;
+            width: 95%;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: #8B0000;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: white;
+            margin: 0;
+            border: none;
+            padding: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                font-size: 11pt;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .main-grid {
+                display: block;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+
+            .print-only {
+                display: block !important;
+            }
+
+            .spec-sheet-print {
+                padding: 20px;
+            }
+
+            .spec-sheet-print .print-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                border-bottom: 3px solid #8B0000;
+                padding-bottom: 20px;
+                margin-bottom: 30px;
+            }
+
+            .spec-sheet-print .company-name {
+                font-size: 28pt;
+                font-weight: bold;
+                color: #8B0000;
+            }
+
+            .spec-sheet-print .company-tagline {
+                font-size: 10pt;
+                color: #666;
+            }
+
+            .spec-sheet-print .doc-info {
+                text-align: right;
+                font-size: 10pt;
+            }
+
+            .spec-sheet-print .opening-section {
+                margin-bottom: 30px;
+                page-break-inside: avoid;
+            }
+
+            .spec-sheet-print .opening-title {
+                background: #8B0000;
+                color: white;
+                padding: 10px 15px;
+                font-size: 14pt;
+                font-weight: bold;
+            }
+
+            .spec-sheet-print .spec-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 15px;
+            }
+
+            .spec-sheet-print .spec-table th {
+                background: #f3f4f6;
+                padding: 8px 12px;
+                text-align: left;
+                font-size: 9pt;
+                text-transform: uppercase;
+                border-bottom: 2px solid #d1d5db;
+            }
+
+            .spec-sheet-print .spec-table td {
+                padding: 10px 12px;
+                border-bottom: 1px solid #e5e7eb;
+                font-size: 10pt;
+            }
+
+            .spec-sheet-print .spec-table .price-col {
+                text-align: right;
+                font-family: monospace;
+            }
+
+            .spec-sheet-print .totals-box {
+                margin-top: 30px;
+                border: 2px solid #1a1a1a;
+                padding: 20px;
+            }
+
+            .spec-sheet-print .signature-section {
+                margin-top: 50px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            .spec-sheet-print .sig-line {
+                border-bottom: 1px solid #1a1a1a;
+                height: 40px;
+            }
+
+            .spec-sheet-print .sig-label {
+                font-size: 9pt;
+                color: #666;
+                margin-top: 5px;
+            }
+        }
+
+        .print-only {
+            display: none;
+        }
+
+        /* Utility */
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .mt-10 { margin-top: 10px; }
+        .mb-10 { margin-bottom: 10px; }
+
+        /* Add New Button */
+        .btn-add-new {
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 10px;
+            padding: 2px 6px;
+            cursor: pointer;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+        .btn-add-new:hover {
+            background: #15803d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header no-print">
+        <div class="logo-section">
+            <div class="logo-icon">🚪</div>
+            <div>
+                <div class="logo-text">ALOHA DOORS</div>
+                <div class="logo-subtitle">COMMERCIAL DOORS, GATES & MORE</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-primary" onclick="printSpecSheet()">📄 Print Spec Sheet</button>
+            <button class="btn btn-primary" onclick="copyOrderText()">📋 Copy Order</button>
+            <button class="btn btn-primary" onclick="exportJSON()">💾 Save File</button>
+            <button class="btn btn-primary" onclick="document.getElementById('importFile').click()">📂 Load File</button>
+            <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+            <button class="btn btn-primary" onclick="openImageManager()">🖼️ Manage Images</button>
+            <button class="btn btn-success" onclick="addNewDoor()">➕ Add Door</button>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-container no-print">
+        <div class="tabs" id="doorTabs"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-grid">
+        <!-- Left Panel - Configuration -->
+        <div id="configPanel" class="no-print">
+            
+            <!-- Job Info -->
+            <div class="card">
+                <h2><span class="icon">📋</span> Job Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Estimate #</label>
+                        <input type="text" id="estimateNumber" onchange="updateJobInfo()">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="estimateDate" onchange="updateJobInfo()">
+                    </div>
+                    <div class="form-group">
+                        <label>Customer</label>
+                        <input type="text" id="customerName" placeholder="Customer Name" onchange="updateJobInfo()">
+                    </div>
+                    <div class="form-group">
+                        <label>Job Reference</label>
+                        <input type="text" id="jobReference" placeholder="Project Name / PO#" onchange="updateJobInfo()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Door Information -->
+            <div class="card">
+                <h2><span class="icon">🚪</span> Door Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" id="doorQuantity" value="1" min="1" onchange="updateDoor()">
+                        <span class="help-text">How many of this door</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Width (in)</label>
+                        <input type="number" id="doorWidth" placeholder="36" onchange="updateDoor()">
+                    </div>
+                    <div class="form-group">
+                        <label>Height (in)</label>
+                        <input type="number" id="doorHeight" placeholder="84" onchange="updateDoor()">
+                    </div>
+                    <div class="form-group">
+                        <label>Thickness</label>
+                        <select id="doorThickness" onchange="updateDoor()">
+                            <option value="1-3/8">1-3/8"</option>
+                            <option value="1-3/4" selected>1-3/4"</option>
+                            <option value="2">2"</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Door Type</label>
+                        <select id="doorType" onchange="updateDoorType()">
+                            <option value="">-- Select --</option>
+                            <optgroup label="HM (Hollow Metal)">
+                                <option value="HM-3HR">HM (Hollow Metal) - 3 Hour Fire Rated</option>
+                                <option value="HM-90">HM (Hollow Metal) - 90 Min Fire Rated</option>
+                                <option value="HM-45">HM (Hollow Metal) - 45 Min Fire Rated</option>
+                                <option value="HM-20">HM (Hollow Metal) - 20 Min Fire Rated</option>
+                                <option value="HM-STD">HM (Hollow Metal) - Non-Rated</option>
+                            </optgroup>
+                            <optgroup label="Specialty Doors">
+                                <option value="RF">RF (Radio Frequency) Shielded Door</option>
+                                <option value="STC">STC (Sound Transmission Class) Acoustic Door</option>
+                            </optgroup>
+                            <optgroup label="WD (Wood)">
+                                <option value="WD-PAINT">WD (Wood) - Paint Grade</option>
+                                <option value="WD-STAIN">WD (Wood) - Stain Grade</option>
+                                <option value="WD-LAM">WD (Wood) - Laminate</option>
+                            </optgroup>
+                            <option value="OTHER">Other / Manual Entry</option>
+                        </select>
+                        <input type="text" id="doorTypeManual" placeholder="Enter door type..." style="display:none; margin-top:6px;" onchange="updateDoor()">
+                    </div>
+                    <div class="form-group">
+                        <label>Brand <button class="btn-add-new" onclick="openAddModal('doors', 'brand')">+</button></label>
+                        <select id="doorBrand" onchange="updateDoorBrand()">
+                            <option value="">-- Select --</option>
+                        </select>
+                        <input type="text" id="doorBrandManual" placeholder="Enter brand..." style="display:none; margin-top:6px;" onchange="updateDoor()">
+                    </div>
+                    <div class="form-group">
+                        <label>Model/Series <button class="btn-add-new" onclick="openAddModal('doors', 'model')">+</button></label>
+                        <select id="doorModel" onchange="updateDoorModel()">
+                            <option value="">-- Select --</option>
+                        </select>
+                        <input type="text" id="doorModelManual" placeholder="Enter model..." style="display:none; margin-top:6px;" onchange="updateDoor()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fire Rating</label>
+                        <select id="doorFireRating" onchange="updateDoor()">
+                            <option value="None">None</option>
+                            <option value="20-min">20 Min</option>
+                            <option value="45-min">45 Min</option>
+                            <option value="60-min">60 Min</option>
+                            <option value="90-min">90 Min</option>
+                            <option value="3-hr">3 Hour</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Handing</label>
+                        <select id="doorHanding" onchange="updateDoor()">
+                            <option value="LH">LH - Left Hand</option>
+                            <option value="RH">RH - Right Hand</option>
+                            <option value="LHR">LHR - Left Hand Reverse</option>
+                            <option value="RHR">RHR - Right Hand Reverse</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Swing</label>
+                        <select id="doorSwing" onchange="updateDoor()">
+                            <option value="Inswing">Inswing</option>
+                            <option value="Outswing">Outswing</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Door Pricing -->
+                <div class="pricing-row">
+                    <div class="form-group">
+                        <label>Your Cost</label>
+                        <input type="number" id="doorCost" class="cost-input" placeholder="0.00" step="0.01" onchange="updateDoor()">
+                    </div>
+                    <div class="form-group">
+                        <label>Markup %</label>
+                        <input type="number" id="doorMarkup" class="markup-input" value="30" step="1" onchange="updateDoor()">
+                    </div>
+                    <div class="form-group">
+                        <label>Sell Price</label>
+                        <input type="text" id="doorSellPrice" class="sell-price" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Labor</label>
+                        <input type="number" id="doorLabor" class="labor-input" placeholder="0.00" step="0.01" onchange="updateDoor()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame -->
+            <div class="card">
+                <h2><span class="icon">🔲</span> Frame</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Frame Type</label>
+                        <select id="frameType" onchange="updateFrameType()">
+                            <option value="">-- Select --</option>
+                            <optgroup label="KD (Knock Down) Frames">
+                                <option value="KD-DW-16">KD (Knock Down) - Drywall 16 Ga.</option>
+                                <option value="KD-DW-14">KD (Knock Down) - Drywall 14 Ga.</option>
+                                <option value="KD-MASONRY">KD (Knock Down) - Masonry/Block</option>
+                                <option value="KD-EXIST">KD (Knock Down) - Existing Opening</option>
+                            </optgroup>
+                            <optgroup label="Welded Frames">
+                                <option value="WLD-DW">Welded Frame - Drywall</option>
+                                <option value="WLD-MASONRY">Welded Frame - Masonry/CMU</option>
+                                <option value="WLD-CONCRETE">Welded Frame - Concrete</option>
+                            </optgroup>
+                            <optgroup label="Frame Configurations">
+                                <option value="SINGLE">Single Door Frame</option>
+                                <option value="PAIR">Pair (Double Door) Frame</option>
+                                <option value="SL-1">Single w/ 1 Sidelite Frame</option>
+                                <option value="SL-2">Single w/ 2 Sidelites Frame</option>
+                                <option value="BORROW">Borrowed Lite Frame</option>
+                                <option value="TRANSOM">Transom Frame</option>
+                                <option value="DUTCH">Dutch Door Frame</option>
+                            </optgroup>
+                            <optgroup label="Specialty Frames">
+                                <option value="ADJ">Adjustable Throat Frame</option>
+                                <option value="CASED">Cased Opening Frame</option>
+                                <option value="DBL-EGRESS">Double Egress Frame</option>
+                                <option value="WRAP">Wrap-Around Frame (Retrofit)</option>
+                            </optgroup>
+                            <option value="OTHER">Other / Manual Entry</option>
+                        </select>
+                        <input type="text" id="frameTypeManual" placeholder="Enter frame type..." style="display:none; margin-top:6px;" onchange="updateDoor()">
+                    </div>
+                    <div class="form-group">
+                        <label>Brand <button class="btn-add-new" onclick="openAddModal('frames', 'brand')">+</button></label>
+                        <select id="frameBrand" onchange="updateFrameBrand()">
+                            <option value="">-- Select --</option>
+                        </select>
+                        <input type="text" id="frameBrandManual" placeholder="Enter brand..." style="display:none; margin-top:6px;" onchange="updateDoor()">
+                    </div>
+                    <div class="form-group">
+                        <label>Model/Series <button class="btn-add-new" onclick="openAddModal('frames', 'model')">+</button></label>
+                        <select id="frameModel" onchange="updateFrameModel()">
+                            <option value="">-- Select --</option>
+                        </select>
+                        <input type="text" id="frameModelManual" placeholder="Enter model..." style="display:none; margin-top:6px;" onchange="updateDoor()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Frame Material</label>
+                        <select id="frameMaterial" onchange="updateDoor()">
+                            <option value="HM-16">HM (Hollow Metal) 16 Ga.</option>
+                            <option value="HM-14">HM (Hollow Metal) 14 Ga.</option>
+                            <option value="HM-12">HM (Hollow Metal) 12 Ga.</option>
+                            <option value="WD">WD (Wood)</option>
+                            <option value="AL">AL (Aluminum)</option>
+                            <option value="SS">SS (Stainless Steel)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Anchors</label>
+                        <select id="frameAnchors" onchange="updateDoor()">
+                            <option value="Masonry-T">Masonry T-Anchor</option>
+                            <option value="Masonry-Wire">Masonry Wire Anchor</option>
+                            <option value="Steel-Stud">Steel Stud Anchor</option>
+                            <option value="Wood-Stud">Wood Stud Anchor</option>
+                            <option value="Compression">Compression Anchor</option>
+                            <option value="Core-Board">Core Board Anchor</option>
+                            <option value="Existing">Existing Conditions</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Jamb Depth</label>
+                        <select id="frameJambDepth" onchange="updateDoor()">
+                            <option value="4-3/4">4-3/4" (Standard Drywall)</option>
+                            <option value="5-3/4">5-3/4"</option>
+                            <option value="6-3/4">6-3/4"</option>
+                            <option value="7-3/4">7-3/4"</option>
+                            <option value="8-3/4">8-3/4" (Masonry)</option>
+                            <option value="OTHER">Other (Specify)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Head/Strike Prep</label>
+                        <select id="framePrep" onchange="updateDoor()">
+                            <option value="STD">Standard (161)</option>
+                            <option value="MORTISE">Mortise Lock</option>
+                            <option value="DEADBOLT">Deadbolt</option>
+                            <option value="ELECTRIC">Electric Strike</option>
+                            <option value="NONE">No Prep</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Frame Pricing -->
+                <div class="pricing-row">
+                    <div class="form-group">
+                        <label>Your Cost</label>
+                        <input type="number" id="frameCost" class="cost-input" placeholder="0.00" step="0.01" onchange="updateDoor()">
+                    </div>
+                    <div class="form-group">
+                        <label>Markup %</label>
+                        <input type="number" id="frameMarkup" class="markup-input" value="30" step="1" onchange="updateDoor()">
+                    </div>
+                    <div class="form-group">
+                        <label>Sell Price</label>
+                        <input type="text" id="frameSellPrice" class="sell-price" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Labor</label>
+                        <input type="number" id="frameLabor" class="labor-input" placeholder="0.00" step="0.01" onchange="updateDoor()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hardware -->
+            <div class="card">
+                <h2><span class="icon">🔧</span> Hardware</h2>
+                <div class="hardware-list" id="hardwareList">
+                    <!-- Hardware items rendered here -->
+                </div>
+                <button class="btn btn-outline btn-sm mt-10" onclick="addHardwareItem()">+ Add Hardware</button>
+            </div>
+
+            <!-- Notes -->
+            <div class="card">
+                <h2><span class="icon">📝</span> Notes</h2>
+                <textarea id="doorNotes" placeholder="Special instructions or requirements..." onchange="updateDoor()"></textarea>
+            </div>
+        </div>
+
+        <!-- Right Panel - Summary -->
+        <div class="summary-panel no-print">
+            <div class="card">
+                <div class="summary-header">
+                    <h2>📋 Door #<span id="summaryDoorNum">1</span> Summary</h2>
+                </div>
+                
+                <div class="quantity-display">
+                    <div class="qty-number" id="summaryQty">1</div>
+                    <div class="qty-label">of this configuration</div>
+                </div>
+
+                <div id="summaryContent">
+                    <!-- Summary items rendered here -->
+                </div>
+
+                <div class="totals-section">
+                    <div class="total-row subtotal">
+                        <span>Materials Subtotal:</span>
+                        <span class="total-value" id="materialsSubtotal">$0.00</span>
+                    </div>
+                    <div class="total-row subtotal">
+                        <span>Labor Subtotal:</span>
+                        <span class="total-value" id="laborSubtotal">$0.00</span>
+                    </div>
+                    <div class="total-row subtotal">
+                        <span>Door Total (×<span id="qtyMultiplier">1</span>):</span>
+                        <span class="total-value" id="doorTotal">$0.00</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>All Doors Total:</span>
+                        <span class="total-value" id="grandTotal">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Print Spec Sheet (hidden, shown only on print) -->
+<div class="print-only spec-sheet-print" id="specSheetPrint">
+    <!-- Generated on print -->
+</div>
+
+<!-- Modal for Adding Brands/Models -->
+<div class="modal-overlay" id="addModal">
+    <div class="modal" style="max-width:500px;">
+        <div class="modal-header">
+            <h2 id="addModalTitle">Add New Item</h2>
+            <button class="modal-close" onclick="closeAddModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Category</label>
+                <select id="addModalCategory" onchange="updateAddModalBrands()">
+                    <option value="doors">Doors</option>
+                    <option value="frames">Frames</option>
+                    <option value="hardware">Hardware</option>
+                </select>
+            </div>
+            <div class="form-group" id="addBrandSection">
+                <label>Add New Brand</label>
+                <input type="text" id="addBrandInput" placeholder="Enter new brand name...">
+                <button class="btn btn-success btn-sm mt-10" onclick="addNewBrand()">Add Brand</button>
+            </div>
+            <div class="form-group" id="addModelSection" style="margin-top:20px; padding-top:20px; border-top:1px solid #e5e7eb;">
+                <label>Add Model to Existing Brand</label>
+                <select id="addModelBrandSelect">
+                    <option value="">-- Select Brand --</option>
+                </select>
+                <input type="text" id="addModelInput" placeholder="Enter new model name..." style="margin-top:8px;">
+                <button class="btn btn-success btn-sm mt-10" onclick="addNewModel()">Add Model</button>
+            </div>
+            <div id="addModalMessage" style="margin-top:15px; padding:10px; border-radius:6px; display:none;"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeAddModal()">Done</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Image Manager -->
+<div class="modal-overlay" id="imageModal">
+    <div class="modal" style="max-width:800px;">
+        <div class="modal-header">
+            <h2>🖼️ Image Manager - Spec Sheet Images</h2>
+            <button class="modal-close" onclick="closeImageManager()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="margin-bottom:15px; color:#6b7280; font-size:14px;">Upload images for catalog items. These will automatically appear on the spec sheet when that item is selected.</p>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="imgCategory" onchange="updateImageItemList()">
+                        <option value="doors">Door Types</option>
+                        <option value="frames">Frame Types</option>
+                        <option value="hardware">Hardware</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Item</label>
+                    <select id="imgItem" onchange="showCurrentImage()">
+                        <option value="">-- Select Item --</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="margin-top:20px; padding:20px; border:2px dashed #d1d5db; border-radius:8px; text-align:center;" id="imageUploadArea">
+                <div id="currentImagePreview" style="margin-bottom:15px;">
+                    <p style="color:#9ca3af;">No image assigned to this item</p>
+                </div>
+                <input type="file" id="imageFileInput" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
+                <button class="btn btn-blue" onclick="document.getElementById('imageFileInput').click()">📤 Upload Image</button>
+                <button class="btn btn-danger" onclick="removeCurrentImage()" style="margin-left:10px;">🗑️ Remove Image</button>
+                <p style="margin-top:10px; font-size:12px; color:#9ca3af;">Supported: JPG, PNG, GIF (max 2MB recommended)</p>
+            </div>
+            
+            <div style="margin-top:25px; padding-top:20px; border-top:1px solid #e5e7eb;">
+                <h3 style="font-size:14px; margin-bottom:15px;">All Images in Category</h3>
+                <div id="imageThumbnailGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(120px, 1fr)); gap:10px;">
+                    <!-- Thumbnails rendered here -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeImageManager()">Done</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// DATA MODEL
+// ═══════════════════════════════════════════════════════════════════════════
+
+const AppState = {
+    job: {
+        estimateNumber: '',
+        estimateDate: '',
+        customerName: '',
+        jobReference: ''
+    },
+    doors: [],
+    activeIndex: 0
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BRAND LIBRARY
+// ═══════════════════════════════════════════════════════════════════════════
+
+const BrandLibrary = {
+    doors: {
+        'Ceco Door': ['Standard Series', 'Imperial Series', 'Storm Series', 'Custom'],
+        'Curries': ['707', '747', 'Custom'],
+        'Steelcraft': ['L-Series', 'B-Series', 'CE-Series'],
+        'Republic Doors': ['Standard', 'Heavy Duty'],
+        'Mesker': ['Type I', 'Type II'],
+        'Masonite': ['Safe N Sound', 'Solidoor', 'Molded Panel'],
+        'VT Industries': ['VT1000', 'VT5000', 'Architectural'],
+        'Marshfield': ['Premium Architectural', 'Standard'],
+        'Eggers': ['Acoustic', 'Fire Rated', 'Standard'],
+        'Other': ['Manual Entry']
+    },
+    frames: {
+        'Ceco Door': ['KD Series', 'Welded Series'],
+        'Curries': ['665', '767'],
+        'Steelcraft': ['F-Series', 'WF-Series'],
+        'Timely': ['Classic', 'Prefinished'],
+        'Republic Doors': ['Standard KD', 'Welded'],
+        'Other': ['Manual Entry']
+    },
+    hardware: {
+        'Von Duprin': ['98/99 Series', '22 Series', '33A/35A Series', '88 Series'],
+        'Schlage': ['AL Series', 'ND Series', 'L9000 Series'],
+        'Norton': ['8500 Series', '8000 Series', '7500 Series'],
+        'LCN': ['4041', '4040XP', '4110'],
+        'Best': ['9K Series', '45H Series', 'IC Core 7-Pin'],
+        'Cal-Royal': ['900 Series', '700 Series'],
+        'Hager': ['4300', '5200'],
+        'Ives': ['FB31', 'FB41'],
+        'Pemko': ['Thresholds', 'Door Bottoms'],
+        'Other': ['Manual Entry']
+    }
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HARDWARE CATALOG
+// ═══════════════════════════════════════════════════════════════════════════
+
+const HardwareCatalog = [
+    { id: 'lockset', label: 'Lockset / Lever Lock', defaultBrand: 'Schlage', defaultModel: 'ND Series' },
+    { id: 'panic-rim', label: 'Panic Bar - Rim Exit', defaultBrand: 'Von Duprin', defaultModel: '98/99 Series' },
+    { id: 'panic-cvr', label: 'Panic Bar - Concealed VR', defaultBrand: 'Von Duprin', defaultModel: '22 Series' },
+    { id: 'panic-svr', label: 'Panic Bar - Surface VR', defaultBrand: 'Von Duprin', defaultModel: '33A/35A Series' },
+    { id: 'panic-trim', label: 'Panic Outside Trim', defaultBrand: 'Von Duprin', defaultModel: '88 Series' },
+    { id: 'closer', label: 'Door Closer', defaultBrand: 'LCN', defaultModel: '4041' },
+    { id: 'hinges', label: 'Hinges (Set)', defaultBrand: 'Hager', defaultModel: '4300' },
+    { id: 'flush-manual', label: 'Manual Flush Bolts', defaultBrand: 'Ives', defaultModel: 'FB31' },
+    { id: 'flush-auto', label: 'Automatic Flush Bolts', defaultBrand: 'Ives', defaultModel: 'FB41' },
+    { id: 'cylinder', label: 'IC Cylinder', defaultBrand: 'Best', defaultModel: 'IC Core 7-Pin' },
+    { id: 'threshold', label: 'Threshold', defaultBrand: 'Pemko', defaultModel: 'Thresholds' },
+    { id: 'stop', label: 'Door Stop', defaultBrand: 'Ives', defaultModel: 'Manual Entry' },
+    { id: 'other', label: 'Other Hardware', defaultBrand: 'Other', defaultModel: 'Manual Entry' }
+];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// UTILITY FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function generateId() {
+    return 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function formatCurrency(num) {
+    return '$' + parseFloat(num || 0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+
+function calculateSellPrice(cost, markupPercent) {
+    const c = parseFloat(cost) || 0;
+    const m = parseFloat(markupPercent) || 0;
+    return c * (1 + m / 100);
+}
+
+function getVal(id) {
+    const el = document.getElementById(id);
+    return el ? el.value : '';
+}
+
+function setVal(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.value = val ?? '';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DOOR DATA MANAGEMENT
+// ═══════════════════════════════════════════════════════════════════════════
+
+function createNewDoor() {
+    return {
+        id: generateId(),
+        quantity: 1,
+        door: {
+            type: '',
+            typeManual: '',
+            brand: '',
+            brandManual: '',
+            model: '',
+            modelManual: '',
+            width: '',
+            height: '',
+            thickness: '1-3/4',
+            fireRating: 'None',
+            handing: 'LH',
+            swing: 'Inswing',
+            cost: 0,
+            markup: 30,
+            labor: 0
+        },
+        frame: {
+            type: '',
+            typeManual: '',
+            brand: '',
+            brandManual: '',
+            model: '',
+            modelManual: '',
+            material: 'HM-16',
+            anchors: 'Steel-Stud',
+            jambDepth: '4-3/4',
+            prep: 'STD',
+            cost: 0,
+            markup: 30,
+            labor: 0
+        },
+        hardware: [],
+        notes: ''
+    };
+}
+
+function addNewDoor() {
+    AppState.doors.push(createNewDoor());
+    AppState.activeIndex = AppState.doors.length - 1;
+    renderTabs();
+    loadDoorToForm();
+}
+
+function removeDoor(index) {
+    if (AppState.doors.length === 1) return;
+    AppState.doors.splice(index, 1);
+    AppState.activeIndex = Math.min(AppState.activeIndex, AppState.doors.length - 1);
+    renderTabs();
+    loadDoorToForm();
+}
+
+function switchToDoor(index) {
+    AppState.activeIndex = index;
+    renderTabs();
+    loadDoorToForm();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// RENDER TABS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function renderTabs() {
+    const container = document.getElementById('doorTabs');
+    container.innerHTML = '';
+    
+    AppState.doors.forEach((door, idx) => {
+        const tab = document.createElement('div');
+        tab.className = 'tab';
+        
+        const btn = document.createElement('button');
+        btn.className = 'tab-btn' + (idx === AppState.activeIndex ? ' active' : '');
+        btn.innerHTML = `Door #${idx + 1} <span class="tab-qty">×${door.quantity}</span>`;
+        btn.onclick = () => switchToDoor(idx);
+        tab.appendChild(btn);
+        
+        if (AppState.doors.length > 1) {
+            const delBtn = document.createElement('button');
+            delBtn.className = 'btn btn-danger';
+            delBtn.textContent = '✕';
+            delBtn.onclick = (e) => { e.stopPropagation(); removeDoor(idx); };
+            tab.appendChild(delBtn);
+        }
+        
+        container.appendChild(tab);
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// POPULATE BRAND/MODEL DROPDOWNS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function populateBrandDropdown(selectId, category) {
+    const select = document.getElementById(selectId);
+    const brands = Object.keys(BrandLibrary[category] || {});
+    
+    select.innerHTML = '<option value="">-- Select --</option>';
+    brands.forEach(b => {
+        const opt = document.createElement('option');
+        opt.value = b;
+        opt.textContent = b;
+        select.appendChild(opt);
+    });
+}
+
+function populateModelDropdown(selectId, category, brand) {
+    const select = document.getElementById(selectId);
+    const models = BrandLibrary[category]?.[brand] || [];
+    
+    select.innerHTML = '<option value="">-- Select --</option>';
+    models.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = m;
+        select.appendChild(opt);
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// LOAD DOOR TO FORM
+// ═══════════════════════════════════════════════════════════════════════════
+
+function loadDoorToForm() {
+    const door = AppState.doors[AppState.activeIndex];
+    if (!door) return;
+    
+    // Job info
+    setVal('estimateNumber', AppState.job.estimateNumber);
+    setVal('estimateDate', AppState.job.estimateDate);
+    setVal('customerName', AppState.job.customerName);
+    setVal('jobReference', AppState.job.jobReference);
+    
+    // Door
+    setVal('doorQuantity', door.quantity);
+    setVal('doorType', door.door.type);
+    setVal('doorTypeManual', door.door.typeManual || '');
+    setVal('doorWidth', door.door.width);
+    setVal('doorHeight', door.door.height);
+    setVal('doorThickness', door.door.thickness);
+    setVal('doorFireRating', door.door.fireRating);
+    setVal('doorHanding', door.door.handing);
+    setVal('doorSwing', door.door.swing);
+    setVal('doorCost', door.door.cost || '');
+    setVal('doorMarkup', door.door.markup);
+    setVal('doorLabor', door.door.labor || '');
+    
+    populateBrandDropdown('doorBrand', 'doors');
+    setVal('doorBrand', door.door.brand);
+    setVal('doorBrandManual', door.door.brandManual || '');
+    populateModelDropdown('doorModel', 'doors', door.door.brand);
+    setVal('doorModel', door.door.model);
+    setVal('doorModelManual', door.door.modelManual || '');
+    
+    // Show/hide manual entry fields for door
+    toggleManualEntry('doorType', 'doorTypeManual', door.door.type === 'OTHER');
+    toggleManualEntry('doorBrand', 'doorBrandManual', door.door.brand === 'Other');
+    toggleManualEntry('doorModel', 'doorModelManual', door.door.model === 'Manual Entry');
+    
+    // Frame
+    setVal('frameType', door.frame.type);
+    setVal('frameTypeManual', door.frame.typeManual || '');
+    setVal('frameMaterial', door.frame.material || 'HM-16');
+    setVal('frameAnchors', door.frame.anchors);
+    setVal('frameJambDepth', door.frame.jambDepth || '4-3/4');
+    setVal('framePrep', door.frame.prep || 'STD');
+    setVal('frameCost', door.frame.cost || '');
+    setVal('frameMarkup', door.frame.markup);
+    setVal('frameLabor', door.frame.labor || '');
+    
+    populateBrandDropdown('frameBrand', 'frames');
+    setVal('frameBrand', door.frame.brand);
+    setVal('frameBrandManual', door.frame.brandManual || '');
+    populateModelDropdown('frameModel', 'frames', door.frame.brand);
+    setVal('frameModel', door.frame.model);
+    setVal('frameModelManual', door.frame.modelManual || '');
+    
+    // Show/hide manual entry fields for frame
+    toggleManualEntry('frameType', 'frameTypeManual', door.frame.type === 'OTHER');
+    toggleManualEntry('frameBrand', 'frameBrandManual', door.frame.brand === 'Other');
+    toggleManualEntry('frameModel', 'frameModelManual', door.frame.model === 'Manual Entry');
+    
+    // Hardware
+    renderHardwareList();
+    
+    // Notes
+    setVal('doorNotes', door.notes);
+    
+    // Calculate prices
+    updatePriceDisplays();
+    updateSummary();
+}
+
+function toggleManualEntry(selectId, inputId, show) {
+    const input = document.getElementById(inputId);
+    if (input) {
+        input.style.display = show ? 'block' : 'none';
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// UPDATE FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function updateJobInfo() {
+    AppState.job.estimateNumber = getVal('estimateNumber');
+    AppState.job.estimateDate = getVal('estimateDate');
+    AppState.job.customerName = getVal('customerName');
+    AppState.job.jobReference = getVal('jobReference');
+}
+
+function updateDoor() {
+    const door = AppState.doors[AppState.activeIndex];
+    if (!door) return;
+    
+    door.quantity = parseInt(getVal('doorQuantity')) || 1;
+    door.door.type = getVal('doorType');
+    door.door.typeManual = getVal('doorTypeManual');
+    door.door.brand = getVal('doorBrand');
+    door.door.brandManual = getVal('doorBrandManual');
+    door.door.model = getVal('doorModel');
+    door.door.modelManual = getVal('doorModelManual');
+    door.door.width = getVal('doorWidth');
+    door.door.height = getVal('doorHeight');
+    door.door.thickness = getVal('doorThickness');
+    door.door.fireRating = getVal('doorFireRating');
+    door.door.handing = getVal('doorHanding');
+    door.door.swing = getVal('doorSwing');
+    door.door.cost = parseFloat(getVal('doorCost')) || 0;
+    door.door.markup = parseFloat(getVal('doorMarkup')) || 0;
+    door.door.labor = parseFloat(getVal('doorLabor')) || 0;
+    
+    door.frame.type = getVal('frameType');
+    door.frame.typeManual = getVal('frameTypeManual');
+    door.frame.brand = getVal('frameBrand');
+    door.frame.brandManual = getVal('frameBrandManual');
+    door.frame.model = getVal('frameModel');
+    door.frame.modelManual = getVal('frameModelManual');
+    door.frame.material = getVal('frameMaterial');
+    door.frame.anchors = getVal('frameAnchors');
+    door.frame.jambDepth = getVal('frameJambDepth');
+    door.frame.prep = getVal('framePrep');
+    door.frame.cost = parseFloat(getVal('frameCost')) || 0;
+    door.frame.markup = parseFloat(getVal('frameMarkup')) || 0;
+    door.frame.labor = parseFloat(getVal('frameLabor')) || 0;
+    
+    door.notes = getVal('doorNotes');
+    
+    updatePriceDisplays();
+    updateSummary();
+    renderTabs();
+}
+
+function updateDoorType() {
+    const type = getVal('doorType');
+    const door = AppState.doors[AppState.activeIndex];
+    if (!door) return;
+    
+    door.door.type = type;
+    
+    // Show/hide manual entry
+    toggleManualEntry('doorType', 'doorTypeManual', type === 'OTHER');
+    
+    // Set defaults based on type
+    const typeDefaults = {
+        'HM-3HR': { fireRating: '3-hr', brand: 'Ceco Door', model: 'Imperial Series' },
+        'HM-90': { fireRating: '90-min', brand: 'Steelcraft', model: 'L-Series' },
+        'HM-45': { fireRating: '45-min', brand: 'Steelcraft', model: 'L-Series' },
+        'HM-20': { fireRating: '20-min', brand: 'Ceco Door', model: 'Standard Series' },
+        'HM-STD': { fireRating: 'None', brand: 'Ceco Door', model: 'Standard Series' },
+        'RF': { fireRating: 'None', brand: 'Ceco Door', model: 'Custom' },
+        'STC': { fireRating: 'None', brand: 'VT Industries', model: 'VT5000' },
+        'WD-PAINT': { fireRating: 'None', brand: 'Masonite', model: 'Safe N Sound' },
+        'WD-STAIN': { fireRating: 'None', brand: 'VT Industries', model: 'Architectural' },
+        'WD-LAM': { fireRating: 'None', brand: 'Masonite', model: 'Solidoor' }
+    };
+    
+    if (typeDefaults[type]) {
+        const def = typeDefaults[type];
+        door.door.fireRating = def.fireRating;
+        door.door.brand = def.brand;
+        door.door.model = def.model;
+        
+        setVal('doorFireRating', def.fireRating);
+        populateBrandDropdown('doorBrand', 'doors');
+        setVal('doorBrand', def.brand);
+        populateModelDropdown('doorModel', 'doors', def.brand);
+        setVal('doorModel', def.model);
+        
+        toggleManualEntry('doorBrand', 'doorBrandManual', false);
+        toggleManualEntry('doorModel', 'doorModelManual', false);
+    }
+    
+    updateDoor();
+}
+
+function updateDoorBrand() {
+    const brand = getVal('doorBrand');
+    const door = AppState.doors[AppState.activeIndex];
+    
+    // Show/hide manual entry for brand
+    toggleManualEntry('doorBrand', 'doorBrandManual', brand === 'Other');
+    
+    populateModelDropdown('doorModel', 'doors', brand);
+    
+    if (door) {
+        door.door.brand = brand;
+        door.door.model = '';
+    }
+    
+    updateDoor();
+}
+
+function updateDoorModel() {
+    const model = getVal('doorModel');
+    toggleManualEntry('doorModel', 'doorModelManual', model === 'Manual Entry');
+    updateDoor();
+}
+
+function updateFrameType() {
+    const type = getVal('frameType');
+    const door = AppState.doors[AppState.activeIndex];
+    if (!door) return;
+    
+    door.frame.type = type;
+    
+    // Show/hide manual entry
+    toggleManualEntry('frameType', 'frameTypeManual', type === 'OTHER');
+    
+    const typeDefaults = {
+        'KD-DW-16': { brand: 'Timely', model: 'Classic', material: 'HM-16' },
+        'KD-DW-14': { brand: 'Timely', model: 'Classic', material: 'HM-14' },
+        'KD-MASONRY': { brand: 'Ceco Door', model: 'KD Series', material: 'HM-14' },
+        'KD-EXIST': { brand: 'Timely', model: 'Prefinished', material: 'HM-16' },
+        'WLD-DW': { brand: 'Ceco Door', model: 'Welded Series', material: 'HM-16' },
+        'WLD-MASONRY': { brand: 'Ceco Door', model: 'Welded Series', material: 'HM-14' },
+        'WLD-CONCRETE': { brand: 'Ceco Door', model: 'Welded Series', material: 'HM-12' },
+        'SINGLE': { brand: 'Ceco Door', model: 'KD Series', material: 'HM-16' },
+        'PAIR': { brand: 'Ceco Door', model: 'KD Series', material: 'HM-16' },
+        'SL-1': { brand: 'Ceco Door', model: 'KD Series', material: 'HM-16' },
+        'SL-2': { brand: 'Ceco Door', model: 'KD Series', material: 'HM-16' },
+        'BORROW': { brand: 'Ceco Door', model: 'KD Series', material: 'HM-16' },
+        'TRANSOM': { brand: 'Ceco Door', model: 'KD Series', material: 'HM-16' },
+        'ADJ': { brand: 'Timely', model: 'Classic', material: 'HM-16' },
+        'WRAP': { brand: 'Timely', model: 'Prefinished', material: 'HM-16' }
+    };
+    
+    if (typeDefaults[type]) {
+        const def = typeDefaults[type];
+        door.frame.brand = def.brand;
+        door.frame.model = def.model;
+        door.frame.material = def.material;
+        
+        populateBrandDropdown('frameBrand', 'frames');
+        setVal('frameBrand', def.brand);
+        populateModelDropdown('frameModel', 'frames', def.brand);
+        setVal('frameModel', def.model);
+        setVal('frameMaterial', def.material);
+        
+        toggleManualEntry('frameBrand', 'frameBrandManual', false);
+        toggleManualEntry('frameModel', 'frameModelManual', false);
+    }
+    
+    updateDoor();
+}
+
+function updateFrameBrand() {
+    const brand = getVal('frameBrand');
+    const door = AppState.doors[AppState.activeIndex];
+    
+    // Show/hide manual entry for brand
+    toggleManualEntry('frameBrand', 'frameBrandManual', brand === 'Other');
+    
+    populateModelDropdown('frameModel', 'frames', brand);
+    
+    if (door) {
+        door.frame.brand = brand;
+        door.frame.model = '';
+    }
+    
+    updateDoor();
+}
+
+function updateFrameModel() {
+    const model = getVal('frameModel');
+    toggleManualEntry('frameModel', 'frameModelManual', model === 'Manual Entry');
+    updateDoor();
+}
+
+function updatePriceDisplays() {
+    const door = AppState.doors[AppState.activeIndex];
+    if (!door) return;
+    
+    const doorSell = calculateSellPrice(door.door.cost, door.door.markup);
+    const frameSell = calculateSellPrice(door.frame.cost, door.frame.markup);
+    
+    setVal('doorSellPrice', formatCurrency(doorSell));
+    setVal('frameSellPrice', formatCurrency(frameSell));
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HARDWARE MANAGEMENT
+// ═══════════════════════════════════════════════════════════════════════════
+
+function renderHardwareList() {
+    const door = AppState.doors[AppState.activeIndex];
+    const container = document.getElementById('hardwareList');
+    
+    if (!door.hardware || door.hardware.length === 0) {
+        container.innerHTML = '<div style="padding:20px;text-align:center;color:#9ca3af;">No hardware added. Click "+ Add Hardware" below.</div>';
+        return;
+    }
+    
+    container.innerHTML = door.hardware.map((hw, idx) => `
+        <div class="hardware-item">
+            <div class="hardware-item-header">
+                <span class="hardware-item-title">${hw.label || 'Hardware Item'}</span>
+                <button class="btn btn-danger btn-sm" onclick="removeHardwareItem(${idx})">Remove</button>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Type</label>
+                    <select onchange="updateHardwareType(${idx}, this.value)">
+                        ${HardwareCatalog.map(h => `<option value="${h.id}" ${hw.type === h.id ? 'selected' : ''}>${h.label}</option>`).join('')}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Brand <button class="btn-add-new" onclick="openAddModal('hardware', 'brand')">+</button></label>
+                    <select id="hwBrand-${idx}" onchange="updateHardwareBrand(${idx}, this.value)">
+                        <option value="">-- Select --</option>
+                        ${Object.keys(BrandLibrary.hardware).map(b => `<option value="${b}" ${hw.brand === b ? 'selected' : ''}>${b}</option>`).join('')}
+                    </select>
+                    <input type="text" id="hwBrandManual-${idx}" placeholder="Enter brand..." style="display:${hw.brand === 'Other' ? 'block' : 'none'}; margin-top:6px;" value="${hw.brandManual || ''}" onchange="updateHardwareBrandManual(${idx}, this.value)">
+                </div>
+                <div class="form-group">
+                    <label>Model <button class="btn-add-new" onclick="openAddModal('hardware', 'model')">+</button></label>
+                    <select id="hwModel-${idx}" onchange="updateHardwareModel(${idx}, this.value)">
+                        <option value="">-- Select --</option>
+                        ${(BrandLibrary.hardware[hw.brand] || []).map(m => `<option value="${m}" ${hw.model === m ? 'selected' : ''}>${m}</option>`).join('')}
+                    </select>
+                    <input type="text" id="hwModelManual-${idx}" placeholder="Enter model..." style="display:${hw.model === 'Manual Entry' ? 'block' : 'none'}; margin-top:6px;" value="${hw.modelManual || ''}" onchange="updateHardwareModelManual(${idx}, this.value)">
+                </div>
+                <div class="form-group">
+                    <label>Qty</label>
+                    <input type="number" value="${hw.qty || 1}" min="1" onchange="updateHardwareQty(${idx}, this.value)">
+                </div>
+            </div>
+            <div class="pricing-row">
+                <div class="form-group">
+                    <label>Cost</label>
+                    <input type="number" class="cost-input" value="${hw.cost || ''}" step="0.01" onchange="updateHardwareCost(${idx}, this.value)">
+                </div>
+                <div class="form-group">
+                    <label>Markup %</label>
+                    <input type="number" class="markup-input" value="${hw.markup || 30}" onchange="updateHardwareMarkup(${idx}, this.value)">
+                </div>
+                <div class="form-group">
+                    <label>Sell</label>
+                    <input type="text" class="sell-price" value="${formatCurrency(calculateSellPrice(hw.cost, hw.markup))}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Labor</label>
+                    <input type="number" class="labor-input" value="${hw.labor || ''}" step="0.01" onchange="updateHardwareLabor(${idx}, this.value)">
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addHardwareItem() {
+    const door = AppState.doors[AppState.activeIndex];
+    const defaultItem = HardwareCatalog[0];
+    
+    door.hardware.push({
+        type: defaultItem.id,
+        label: defaultItem.label,
+        brand: defaultItem.defaultBrand,
+        brandManual: '',
+        model: defaultItem.defaultModel,
+        modelManual: '',
+        qty: 1,
+        cost: 0,
+        markup: 30,
+        labor: 0
+    });
+    
+    renderHardwareList();
+    updateSummary();
+}
+
+function removeHardwareItem(idx) {
+    const door = AppState.doors[AppState.activeIndex];
+    door.hardware.splice(idx, 1);
+    renderHardwareList();
+    updateSummary();
+}
+
+function updateHardwareType(idx, typeId) {
+    const door = AppState.doors[AppState.activeIndex];
+    const catalogItem = HardwareCatalog.find(h => h.id === typeId);
+    
+    door.hardware[idx].type = typeId;
+    door.hardware[idx].label = catalogItem?.label || typeId;
+    door.hardware[idx].brand = catalogItem?.defaultBrand || '';
+    door.hardware[idx].brandManual = '';
+    door.hardware[idx].model = catalogItem?.defaultModel || '';
+    door.hardware[idx].modelManual = '';
+    
+    renderHardwareList();
+    updateSummary();
+}
+
+function updateHardwareBrand(idx, brand) {
+    const door = AppState.doors[AppState.activeIndex];
+    door.hardware[idx].brand = brand;
+    door.hardware[idx].model = '';
+    door.hardware[idx].modelManual = '';
+    renderHardwareList();
+    updateSummary();
+}
+
+function updateHardwareBrandManual(idx, value) {
+    const door = AppState.doors[AppState.activeIndex];
+    door.hardware[idx].brandManual = value;
+    updateSummary();
+}
+
+function updateHardwareModel(idx, model) {
+    const door = AppState.doors[AppState.activeIndex];
+    door.hardware[idx].model = model;
+    
+    // Show manual entry field if "Manual Entry" is selected
+    const manualInput = document.getElementById(`hwModelManual-${idx}`);
+    if (manualInput) {
+        manualInput.style.display = model === 'Manual Entry' ? 'block' : 'none';
+    }
+    
+    updateSummary();
+}
+
+function updateHardwareModelManual(idx, value) {
+    const door = AppState.doors[AppState.activeIndex];
+    door.hardware[idx].modelManual = value;
+    updateSummary();
+}
+
+function updateHardwareQty(idx, qty) {
+    const door = AppState.doors[AppState.activeIndex];
+    door.hardware[idx].qty = parseInt(qty) || 1;
+    updateSummary();
+}
+
+function updateHardwareCost(idx, cost) {
+    const door = AppState.doors[AppState.activeIndex];
+    door.hardware[idx].cost = parseFloat(cost) || 0;
+    renderHardwareList();
+    updateSummary();
+}
+
+function updateHardwareMarkup(idx, markup) {
+    const door = AppState.doors[AppState.activeIndex];
+    door.hardware[idx].markup = parseFloat(markup) || 0;
+    renderHardwareList();
+    updateSummary();
+}
+
+function updateHardwareLabor(idx, labor) {
+    const door = AppState.doors[AppState.activeIndex];
+    door.hardware[idx].labor = parseFloat(labor) || 0;
+    updateSummary();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SUMMARY & TOTALS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function updateSummary() {
+    const door = AppState.doors[AppState.activeIndex];
+    const container = document.getElementById('summaryContent');
+    
+    document.getElementById('summaryDoorNum').textContent = AppState.activeIndex + 1;
+    document.getElementById('summaryQty').textContent = door.quantity;
+    document.getElementById('qtyMultiplier').textContent = door.quantity;
+    
+    const items = [];
+    let materialsTotal = 0;
+    let laborTotal = 0;
+    
+    // Door
+    if (door.door.type || door.door.width) {
+        const doorSell = calculateSellPrice(door.door.cost, door.door.markup);
+        materialsTotal += doorSell;
+        laborTotal += door.door.labor;
+        
+        // Get display values (use manual if "OTHER" selected)
+        let doorTypeDisplay = door.door.type === 'OTHER' ? door.door.typeManual : getDoorTypeLabel(door.door.type);
+        let doorBrandDisplay = door.door.brand === 'Other' ? door.door.brandManual : door.door.brand;
+        let doorModelDisplay = door.door.model === 'Manual Entry' ? door.door.modelManual : door.door.model;
+        
+        let doorDesc = doorTypeDisplay || 'Door';
+        if (doorBrandDisplay) doorDesc += ` – ${doorBrandDisplay}`;
+        if (doorModelDisplay) doorDesc += ` ${doorModelDisplay}`;
+        
+        items.push({
+            category: 'DOOR',
+            name: doorDesc,
+            details: `${door.door.width || '?'}" × ${door.door.height || '?'}" | ${door.door.fireRating} | ${door.door.handing}`,
+            price: doorSell,
+            labor: door.door.labor
+        });
+    }
+    
+    // Frame
+    if (door.frame.type) {
+        const frameSell = calculateSellPrice(door.frame.cost, door.frame.markup);
+        materialsTotal += frameSell;
+        laborTotal += door.frame.labor;
+        
+        let frameTypeDisplay = door.frame.type === 'OTHER' ? door.frame.typeManual : getFrameTypeLabel(door.frame.type);
+        let frameBrandDisplay = door.frame.brand === 'Other' ? door.frame.brandManual : door.frame.brand;
+        let frameModelDisplay = door.frame.model === 'Manual Entry' ? door.frame.modelManual : door.frame.model;
+        
+        let frameDesc = frameTypeDisplay || 'Frame';
+        if (frameBrandDisplay) frameDesc += ` – ${frameBrandDisplay}`;
+        if (frameModelDisplay) frameDesc += ` ${frameModelDisplay}`;
+        
+        items.push({
+            category: 'FRAME',
+            name: frameDesc,
+            details: `${door.frame.material || ''} | ${door.frame.anchors} | Jamb: ${door.frame.jambDepth || ''}`,
+            price: frameSell,
+            labor: door.frame.labor
+        });
+    }
+    
+    // Hardware
+    door.hardware.forEach(hw => {
+        const hwSell = calculateSellPrice(hw.cost, hw.markup) * (hw.qty || 1);
+        const hwLabor = (hw.labor || 0) * (hw.qty || 1);
+        materialsTotal += hwSell;
+        laborTotal += hwLabor;
+        
+        let hwBrandDisplay = hw.brand === 'Other' ? hw.brandManual : hw.brand;
+        let hwModelDisplay = hw.model === 'Manual Entry' ? hw.modelManual : hw.model;
+        
+        let hwDesc = hw.label || hw.type;
+        if (hwBrandDisplay) hwDesc += ` – ${hwBrandDisplay}`;
+        if (hwModelDisplay) hwDesc += ` ${hwModelDisplay}`;
+        
+        items.push({
+            category: 'HARDWARE',
+            name: hwDesc,
+            details: hw.qty > 1 ? `Qty: ${hw.qty}` : '',
+            price: hwSell,
+            labor: hwLabor
+        });
+    });
+    
+    // Notes
+    if (door.notes) {
+        items.push({
+            category: 'NOTES',
+            name: door.notes,
+            details: '',
+            price: 0,
+            labor: 0
+        });
+    }
+    
+    // Render summary
+    container.innerHTML = items.map(item => `
+        <div class="summary-item">
+            <div class="summary-category">${item.category}</div>
+            <div class="summary-item-name">${item.name}</div>
+            ${item.details ? `<div class="summary-details">${item.details}</div>` : ''}
+            ${item.price > 0 ? `<div class="summary-price">Material: ${formatCurrency(item.price)}${item.labor > 0 ? ' | Labor: ' + formatCurrency(item.labor) : ''}</div>` : ''}
+        </div>
+    `).join('');
+    
+    // Calculate totals
+    const doorTotal = (materialsTotal + laborTotal) * door.quantity;
+    
+    document.getElementById('materialsSubtotal').textContent = formatCurrency(materialsTotal);
+    document.getElementById('laborSubtotal').textContent = formatCurrency(laborTotal);
+    document.getElementById('doorTotal').textContent = formatCurrency(doorTotal);
+    
+    // Grand total across all doors
+    let grandTotal = 0;
+    AppState.doors.forEach(d => {
+        let dMat = 0, dLab = 0;
+        
+        dMat += calculateSellPrice(d.door.cost, d.door.markup);
+        dLab += d.door.labor || 0;
+        
+        dMat += calculateSellPrice(d.frame.cost, d.frame.markup);
+        dLab += d.frame.labor || 0;
+        
+        d.hardware.forEach(hw => {
+            dMat += calculateSellPrice(hw.cost, hw.markup) * (hw.qty || 1);
+            dLab += (hw.labor || 0) * (hw.qty || 1);
+        });
+        
+        grandTotal += (dMat + dLab) * d.quantity;
+    });
+    
+    document.getElementById('grandTotal').textContent = formatCurrency(grandTotal);
+}
+
+function getDoorTypeLabel(type) {
+    const labels = {
+        'HM-3HR': 'HM (Hollow Metal) - 3 Hour Fire Rated',
+        'HM-90': 'HM (Hollow Metal) - 90 Min Fire Rated',
+        'HM-45': 'HM (Hollow Metal) - 45 Min Fire Rated',
+        'HM-20': 'HM (Hollow Metal) - 20 Min Fire Rated',
+        'HM-STD': 'HM (Hollow Metal) - Non-Rated',
+        'RF': 'RF (Radio Frequency) Shielded Door',
+        'STC': 'STC (Sound Transmission Class) Acoustic Door',
+        'WD-PAINT': 'WD (Wood) - Paint Grade',
+        'WD-STAIN': 'WD (Wood) - Stain Grade',
+        'WD-LAM': 'WD (Wood) - Laminate'
+    };
+    return labels[type] || type;
+}
+
+function getFrameTypeLabel(type) {
+    const labels = {
+        'KD-DW-16': 'KD (Knock Down) - Drywall 16 Ga.',
+        'KD-DW-14': 'KD (Knock Down) - Drywall 14 Ga.',
+        'KD-MASONRY': 'KD (Knock Down) - Masonry/Block',
+        'KD-EXIST': 'KD (Knock Down) - Existing Opening',
+        'WLD-DW': 'Welded Frame - Drywall',
+        'WLD-MASONRY': 'Welded Frame - Masonry/CMU',
+        'WLD-CONCRETE': 'Welded Frame - Concrete',
+        'SINGLE': 'Single Door Frame',
+        'PAIR': 'Pair (Double Door) Frame',
+        'SL-1': 'Single w/ 1 Sidelite Frame',
+        'SL-2': 'Single w/ 2 Sidelites Frame',
+        'BORROW': 'Borrowed Lite Frame',
+        'TRANSOM': 'Transom Frame',
+        'DUTCH': 'Dutch Door Frame',
+        'ADJ': 'Adjustable Throat Frame',
+        'CASED': 'Cased Opening Frame',
+        'DBL-EGRESS': 'Double Egress Frame',
+        'WRAP': 'Wrap-Around Frame (Retrofit)'
+    };
+    return labels[type] || type;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PRINT SPEC SHEET
+// ═══════════════════════════════════════════════════════════════════════════
+
+function printSpecSheet() {
+    const printContainer = document.getElementById('specSheetPrint');
+    let grandTotal = 0;
+    
+    let html = `
+        <div class="print-header">
+            <div>
+                <div class="company-name">ALOHA DOORS</div>
+                <div class="company-tagline">COMMERCIAL DOORS, GATES & MORE</div>
+            </div>
+            <div class="doc-info">
+                <div><strong>Estimate #:</strong> ${AppState.job.estimateNumber || '—'}</div>
+                <div><strong>Date:</strong> ${AppState.job.estimateDate || new Date().toLocaleDateString()}</div>
+                <div><strong>Customer:</strong> ${AppState.job.customerName || '—'}</div>
+                <div><strong>Job Ref:</strong> ${AppState.job.jobReference || '—'}</div>
+            </div>
+        </div>
+    `;
+    
+    AppState.doors.forEach((door, idx) => {
+        let doorMaterials = 0;
+        let doorLabor = 0;
+        let doorImages = []; // Collect images for this door config
+        
+        const doorSell = calculateSellPrice(door.door.cost, door.door.markup);
+        const frameSell = calculateSellPrice(door.frame.cost, door.frame.markup);
+        
+        html += `
+            <div class="opening-section">
+                <div class="opening-title">DOOR CONFIGURATION #${idx + 1} — QTY: ${door.quantity}</div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Brand / Model</th>
+                            <th>Details</th>
+                            <th class="price-col">Material</th>
+                            <th class="price-col">Labor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+        
+        // Door row
+        if (door.door.type || door.door.width) {
+            doorMaterials += doorSell;
+            doorLabor += door.door.labor || 0;
+            
+            const doorTypeLabel = door.door.type === 'OTHER' ? door.door.typeManual : getDoorTypeLabel(door.door.type);
+            const doorBrandDisplay = door.door.brand === 'Other' ? door.door.brandManual : door.door.brand;
+            const doorModelDisplay = door.door.model === 'Manual Entry' ? door.door.modelManual : door.door.model;
+            
+            // Check for door image
+            const doorImg = getItemImage('doors', door.door.type);
+            if (doorImg) {
+                doorImages.push({ label: doorTypeLabel, src: doorImg });
+            }
+            
+            html += `
+                <tr>
+                    <td><strong>${doorTypeLabel || 'Door'}</strong></td>
+                    <td>${doorBrandDisplay || '—'} ${doorModelDisplay || ''}</td>
+                    <td>${door.door.width || '?'}" × ${door.door.height || '?'}" × ${door.door.thickness}" | ${door.door.fireRating} | ${door.door.handing} | ${door.door.swing}</td>
+                    <td class="price-col">${formatCurrency(doorSell)}</td>
+                    <td class="price-col">${formatCurrency(door.door.labor || 0)}</td>
+                </tr>
+            `;
+        }
+        
+        // Frame row
+        if (door.frame.type) {
+            doorMaterials += frameSell;
+            doorLabor += door.frame.labor || 0;
+            
+            const frameTypeLabel = door.frame.type === 'OTHER' ? door.frame.typeManual : getFrameTypeLabel(door.frame.type);
+            const frameBrandDisplay = door.frame.brand === 'Other' ? door.frame.brandManual : door.frame.brand;
+            const frameModelDisplay = door.frame.model === 'Manual Entry' ? door.frame.modelManual : door.frame.model;
+            
+            // Check for frame image
+            const frameImg = getItemImage('frames', door.frame.type);
+            if (frameImg) {
+                doorImages.push({ label: frameTypeLabel, src: frameImg });
+            }
+            
+            html += `
+                <tr>
+                    <td><strong>${frameTypeLabel || 'Frame'}</strong></td>
+                    <td>${frameBrandDisplay || '—'} ${frameModelDisplay || ''}</td>
+                    <td>${door.frame.material || ''} | ${door.frame.anchors} | Jamb: ${door.frame.jambDepth || ''} | Prep: ${door.frame.prep || ''}</td>
+                    <td class="price-col">${formatCurrency(frameSell)}</td>
+                    <td class="price-col">${formatCurrency(door.frame.labor || 0)}</td>
+                </tr>
+            `;
+        }
+        
+        // Hardware rows
+        door.hardware.forEach(hw => {
+            const hwSell = calculateSellPrice(hw.cost, hw.markup) * (hw.qty || 1);
+            const hwLabor = (hw.labor || 0) * (hw.qty || 1);
+            doorMaterials += hwSell;
+            doorLabor += hwLabor;
+            
+            const hwBrandDisplay = hw.brand === 'Other' ? hw.brandManual : hw.brand;
+            const hwModelDisplay = hw.model === 'Manual Entry' ? hw.modelManual : hw.model;
+            
+            // Check for hardware image
+            const hwImg = getItemImage('hardware', hw.type);
+            if (hwImg) {
+                doorImages.push({ label: hw.label || hw.type, src: hwImg });
+            }
+            
+            html += `
+                <tr>
+                    <td><strong>${hw.label || hw.type}</strong>${hw.qty > 1 ? ` (×${hw.qty})` : ''}</td>
+                    <td>${hwBrandDisplay || '—'} ${hwModelDisplay || ''}</td>
+                    <td></td>
+                    <td class="price-col">${formatCurrency(hwSell)}</td>
+                    <td class="price-col">${formatCurrency(hwLabor)}</td>
+                </tr>
+            `;
+        });
+        
+        const doorTotal = (doorMaterials + doorLabor) * door.quantity;
+        grandTotal += doorTotal;
+        
+        html += `
+                    </tbody>
+                    <tfoot>
+                        <tr style="background:#f3f4f6; font-weight:bold;">
+                            <td colspan="3">Configuration #${idx + 1} Subtotal (×${door.quantity})</td>
+                            <td class="price-col">${formatCurrency(doorMaterials * door.quantity)}</td>
+                            <td class="price-col">${formatCurrency(doorLabor * door.quantity)}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                ${door.notes ? `<p style="margin-top:10px;font-size:10pt;color:#666;"><strong>Notes:</strong> ${door.notes}</p>` : ''}
+        `;
+        
+        // Add images section if any images exist
+        if (doorImages.length > 0) {
+            html += `
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid #e5e7eb;">
+                    <p style="font-size:10pt; font-weight:bold; margin-bottom:10px;">Reference Images:</p>
+                    <div style="display:flex; flex-wrap:wrap; gap:15px;">
+                        ${doorImages.map(img => `
+                            <div style="text-align:center;">
+                                <img src="${img.src}" style="max-width:180px; max-height:150px; border:1px solid #d1d5db; border-radius:4px;">
+                                <p style="font-size:9pt; color:#666; margin-top:5px;">${img.label}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        html += `</div>`; // Close opening-section
+    });
+    
+    // Grand Total
+    html += `
+        <div class="totals-box">
+            <div style="display:flex; justify-content:space-between; font-size:14pt;">
+                <span>ESTIMATE TOTAL:</span>
+                <span style="font-weight:bold; font-family:monospace;">${formatCurrency(grandTotal)}</span>
+            </div>
+        </div>
+        
+        <div class="signature-section">
+            <div>
+                <div class="sig-line"></div>
+                <div class="sig-label">Customer Signature</div>
+            </div>
+            <div>
+                <div class="sig-line"></div>
+                <div class="sig-label">Date</div>
+            </div>
+        </div>
+        
+        <p style="margin-top:40px; font-size:9pt; color:#666; text-align:center;">
+            Thank you for choosing Aloha Doors. This estimate is valid for 30 days.
+        </p>
+    `;
+    
+    printContainer.innerHTML = html;
+    
+    // Hide main content, show print
+    document.querySelectorAll('.no-print').forEach(el => el.style.display = 'none');
+    printContainer.style.display = 'block';
+    
+    window.print();
+    
+    // Restore
+    document.querySelectorAll('.no-print').forEach(el => el.style.display = '');
+    printContainer.style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// COPY ORDER TEXT
+// ═══════════════════════════════════════════════════════════════════════════
+
+function copyOrderText() {
+    let text = `ALOHA DOORS - DOOR ORDER\n`;
+    text += `Date: ${AppState.job.estimateDate || new Date().toLocaleDateString()}\n`;
+    text += `Estimate #: ${AppState.job.estimateNumber || '—'}\n`;
+    text += `Customer: ${AppState.job.customerName || '—'}\n`;
+    text += `Job Reference: ${AppState.job.jobReference || '—'}\n\n`;
+    
+    AppState.doors.forEach((door, idx) => {
+        text += `═══════════════════════════════════\n`;
+        text += `DOOR #${idx + 1} — QTY: ${door.quantity}\n`;
+        text += `═══════════════════════════════════\n\n`;
+        
+        if (door.door.type) {
+            text += `DOOR: ${door.door.type}\n`;
+            text += `  Brand/Model: ${door.door.brand || '—'} ${door.door.model || ''}\n`;
+            text += `  Size: ${door.door.width || '?'}" × ${door.door.height || '?'}" × ${door.door.thickness}"\n`;
+            text += `  Fire Rating: ${door.door.fireRating}\n`;
+            text += `  Handing: ${door.door.handing} | Swing: ${door.door.swing}\n\n`;
+        }
+        
+        if (door.frame.type) {
+            text += `FRAME: ${door.frame.type}\n`;
+            text += `  Brand/Model: ${door.frame.brand || '—'} ${door.frame.model || ''}\n`;
+            text += `  Anchors: ${door.frame.anchors}\n`;
+            if (door.frame.wallType) text += `  Wall Type: ${door.frame.wallType}\n`;
+            text += `\n`;
+        }
+        
+        if (door.hardware.length > 0) {
+            text += `HARDWARE:\n`;
+            door.hardware.forEach(hw => {
+                text += `  • ${hw.label || hw.type}`;
+                if (hw.brand) text += ` – ${hw.brand}`;
+                if (hw.model) text += ` ${hw.model}`;
+                if (hw.qty > 1) text += ` (×${hw.qty})`;
+                text += `\n`;
+            });
+            text += `\n`;
+        }
+        
+        if (door.notes) {
+            text += `NOTES: ${door.notes}\n\n`;
+        }
+    });
+    
+    navigator.clipboard.writeText(text).then(() => {
+        alert('✓ Order copied to clipboard!');
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// JSON IMPORT/EXPORT
+// ═══════════════════════════════════════════════════════════════════════════
+
+function exportJSON() {
+    const data = {
+        version: '1.0',
+        exportDate: new Date().toISOString(),
+        job: AppState.job,
+        doors: AppState.doors
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `aloha-doors-${AppState.job.estimateNumber || 'order'}-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function importJSON(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            
+            if (data.job) AppState.job = data.job;
+            if (data.doors && data.doors.length > 0) {
+                AppState.doors = data.doors;
+                AppState.activeIndex = 0;
+            }
+            
+            renderTabs();
+            loadDoorToForm();
+            alert('✓ Import successful!');
+        } catch (err) {
+            alert('Error importing: ' + err.message);
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// IMAGE CATALOG - Stores images for spec sheet display
+// ═══════════════════════════════════════════════════════════════════════════
+
+const ImageCatalog = {
+    doors: {
+        // Key is the door type ID, value is base64 image data URL
+        // e.g., 'HM-3HR': 'data:image/png;base64,...'
+    },
+    frames: {
+        // Key is frame type ID
+    },
+    hardware: {
+        // Key is hardware type ID (from HardwareCatalog)
+    }
+};
+
+// Door type options for image manager
+const DoorTypeOptions = [
+    { id: 'HM-3HR', label: 'HM (Hollow Metal) - 3 Hour Fire Rated' },
+    { id: 'HM-90', label: 'HM (Hollow Metal) - 90 Min Fire Rated' },
+    { id: 'HM-45', label: 'HM (Hollow Metal) - 45 Min Fire Rated' },
+    { id: 'HM-20', label: 'HM (Hollow Metal) - 20 Min Fire Rated' },
+    { id: 'HM-STD', label: 'HM (Hollow Metal) - Non-Rated' },
+    { id: 'RF', label: 'RF (Radio Frequency) Shielded Door' },
+    { id: 'STC', label: 'STC (Sound Transmission Class) Acoustic Door' },
+    { id: 'WD-PAINT', label: 'WD (Wood) - Paint Grade' },
+    { id: 'WD-STAIN', label: 'WD (Wood) - Stain Grade' },
+    { id: 'WD-LAM', label: 'WD (Wood) - Laminate' }
+];
+
+// Frame type options for image manager
+const FrameTypeOptions = [
+    { id: 'KD-DW-16', label: 'KD (Knock Down) - Drywall 16 Ga.' },
+    { id: 'KD-DW-14', label: 'KD (Knock Down) - Drywall 14 Ga.' },
+    { id: 'KD-MASONRY', label: 'KD (Knock Down) - Masonry/Block' },
+    { id: 'KD-EXIST', label: 'KD (Knock Down) - Existing Opening' },
+    { id: 'WLD-DW', label: 'Welded Frame - Drywall' },
+    { id: 'WLD-MASONRY', label: 'Welded Frame - Masonry/CMU' },
+    { id: 'WLD-CONCRETE', label: 'Welded Frame - Concrete' },
+    { id: 'SINGLE', label: 'Single Door Frame' },
+    { id: 'PAIR', label: 'Pair (Double Door) Frame' },
+    { id: 'SL-1', label: 'Single w/ 1 Sidelite Frame' },
+    { id: 'SL-2', label: 'Single w/ 2 Sidelites Frame' },
+    { id: 'BORROW', label: 'Borrowed Lite Frame' },
+    { id: 'TRANSOM', label: 'Transom Frame' },
+    { id: 'DUTCH', label: 'Dutch Door Frame' },
+    { id: 'ADJ', label: 'Adjustable Throat Frame' },
+    { id: 'CASED', label: 'Cased Opening Frame' },
+    { id: 'DBL-EGRESS', label: 'Double Egress Frame' },
+    { id: 'WRAP', label: 'Wrap-Around Frame (Retrofit)' }
+];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// IMAGE MANAGER FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function openImageManager() {
+    document.getElementById('imageModal').classList.add('active');
+    updateImageItemList();
+}
+
+function closeImageManager() {
+    document.getElementById('imageModal').classList.remove('active');
+}
+
+function updateImageItemList() {
+    const category = document.getElementById('imgCategory').value;
+    const select = document.getElementById('imgItem');
+    
+    let options = [];
+    
+    if (category === 'doors') {
+        options = DoorTypeOptions;
+    } else if (category === 'frames') {
+        options = FrameTypeOptions;
+    } else if (category === 'hardware') {
+        options = HardwareCatalog.map(h => ({ id: h.id, label: h.label }));
+    }
+    
+    select.innerHTML = '<option value="">-- Select Item --</option>';
+    options.forEach(opt => {
+        const hasImage = ImageCatalog[category]?.[opt.id] ? ' ✓' : '';
+        const el = document.createElement('option');
+        el.value = opt.id;
+        el.textContent = opt.label + hasImage;
+        select.appendChild(el);
+    });
+    
+    showCurrentImage();
+    renderImageThumbnails();
+}
+
+function showCurrentImage() {
+    const category = document.getElementById('imgCategory').value;
+    const itemId = document.getElementById('imgItem').value;
+    const preview = document.getElementById('currentImagePreview');
+    
+    if (!itemId) {
+        preview.innerHTML = '<p style="color:#9ca3af;">Select an item to view/upload its image</p>';
+        return;
+    }
+    
+    const imageData = ImageCatalog[category]?.[itemId];
+    
+    if (imageData) {
+        preview.innerHTML = `
+            <img src="${imageData}" style="max-width:100%; max-height:300px; border-radius:8px; border:1px solid #e5e7eb;">
+            <p style="margin-top:10px; color:#16a34a; font-weight:600;">✓ Image assigned</p>
+        `;
+    } else {
+        preview.innerHTML = '<p style="color:#9ca3af;">No image assigned to this item</p>';
+    }
+}
+
+function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const category = document.getElementById('imgCategory').value;
+    const itemId = document.getElementById('imgItem').value;
+    
+    if (!itemId) {
+        alert('Please select an item first.');
+        event.target.value = '';
+        return;
+    }
+    
+    // Check file size (warn if over 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+        if (!confirm('This image is larger than 2MB. Large images may slow down the app. Continue?')) {
+            event.target.value = '';
+            return;
+        }
+    }
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        if (!ImageCatalog[category]) {
+            ImageCatalog[category] = {};
+        }
+        ImageCatalog[category][itemId] = e.target.result;
+        
+        showCurrentImage();
+        updateImageItemList(); // Refresh to show checkmark
+        renderImageThumbnails();
+    };
+    reader.readAsDataURL(file);
+    event.target.value = '';
+}
+
+function removeCurrentImage() {
+    const category = document.getElementById('imgCategory').value;
+    const itemId = document.getElementById('imgItem').value;
+    
+    if (!itemId) {
+        alert('Please select an item first.');
+        return;
+    }
+    
+    if (ImageCatalog[category]?.[itemId]) {
+        if (confirm('Remove this image?')) {
+            delete ImageCatalog[category][itemId];
+            showCurrentImage();
+            updateImageItemList();
+            renderImageThumbnails();
+        }
+    }
+}
+
+function renderImageThumbnails() {
+    const category = document.getElementById('imgCategory').value;
+    const container = document.getElementById('imageThumbnailGrid');
+    
+    let options = [];
+    if (category === 'doors') options = DoorTypeOptions;
+    else if (category === 'frames') options = FrameTypeOptions;
+    else if (category === 'hardware') options = HardwareCatalog.map(h => ({ id: h.id, label: h.label }));
+    
+    const itemsWithImages = options.filter(opt => ImageCatalog[category]?.[opt.id]);
+    
+    if (itemsWithImages.length === 0) {
+        container.innerHTML = '<p style="color:#9ca3af; grid-column:1/-1;">No images uploaded in this category yet.</p>';
+        return;
+    }
+    
+    container.innerHTML = itemsWithImages.map(opt => `
+        <div style="border:1px solid #e5e7eb; border-radius:8px; overflow:hidden; cursor:pointer;" onclick="selectImageItem('${opt.id}')">
+            <img src="${ImageCatalog[category][opt.id]}" style="width:100%; height:80px; object-fit:cover;">
+            <div style="padding:5px; font-size:10px; background:#f9fafb; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                ${opt.label.substring(0, 20)}...
+            </div>
+        </div>
+    `).join('');
+}
+
+function selectImageItem(itemId) {
+    document.getElementById('imgItem').value = itemId;
+    showCurrentImage();
+}
+
+// Get image for a specific item (used by spec sheet)
+function getItemImage(category, itemId) {
+    return ImageCatalog[category]?.[itemId] || null;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ADD BRAND/MODEL MODAL
+// ═══════════════════════════════════════════════════════════════════════════
+
+function openAddModal(category, type) {
+    document.getElementById('addModal').classList.add('active');
+    document.getElementById('addModalCategory').value = category;
+    document.getElementById('addModalTitle').textContent = 'Add New Brand / Model';
+    updateAddModalBrands();
+    
+    // Clear inputs
+    document.getElementById('addBrandInput').value = '';
+    document.getElementById('addModelInput').value = '';
+    document.getElementById('addModalMessage').style.display = 'none';
+}
+
+function closeAddModal() {
+    document.getElementById('addModal').classList.remove('active');
+    // Refresh dropdowns
+    loadDoorToForm();
+}
+
+function updateAddModalBrands() {
+    const category = document.getElementById('addModalCategory').value;
+    const brands = Object.keys(BrandLibrary[category] || {});
+    const select = document.getElementById('addModelBrandSelect');
+    
+    select.innerHTML = '<option value="">-- Select Brand --</option>';
+    brands.forEach(b => {
+        if (b !== 'Other') {
+            const opt = document.createElement('option');
+            opt.value = b;
+            opt.textContent = b;
+            select.appendChild(opt);
+        }
+    });
+}
+
+function addNewBrand() {
+    const category = document.getElementById('addModalCategory').value;
+    const brandName = document.getElementById('addBrandInput').value.trim();
+    
+    if (!brandName) {
+        showAddModalMessage('Please enter a brand name.', 'error');
+        return;
+    }
+    
+    if (BrandLibrary[category][brandName]) {
+        showAddModalMessage('Brand already exists.', 'error');
+        return;
+    }
+    
+    BrandLibrary[category][brandName] = ['Standard'];
+    document.getElementById('addBrandInput').value = '';
+    updateAddModalBrands();
+    showAddModalMessage(`Brand "${brandName}" added successfully!`, 'success');
+}
+
+function addNewModel() {
+    const category = document.getElementById('addModalCategory').value;
+    const brand = document.getElementById('addModelBrandSelect').value;
+    const modelName = document.getElementById('addModelInput').value.trim();
+    
+    if (!brand) {
+        showAddModalMessage('Please select a brand first.', 'error');
+        return;
+    }
+    
+    if (!modelName) {
+        showAddModalMessage('Please enter a model name.', 'error');
+        return;
+    }
+    
+    if (!BrandLibrary[category][brand]) {
+        BrandLibrary[category][brand] = [];
+    }
+    
+    if (BrandLibrary[category][brand].includes(modelName)) {
+        showAddModalMessage('Model already exists for this brand.', 'error');
+        return;
+    }
+    
+    BrandLibrary[category][brand].push(modelName);
+    document.getElementById('addModelInput').value = '';
+    showAddModalMessage(`Model "${modelName}" added to ${brand}!`, 'success');
+}
+
+function showAddModalMessage(msg, type) {
+    const el = document.getElementById('addModalMessage');
+    el.textContent = msg;
+    el.style.display = 'block';
+    el.style.background = type === 'success' ? '#d1fae5' : '#fee2e2';
+    el.style.color = type === 'success' ? '#065f46' : '#991b1b';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INITIALIZATION
+// ═══════════════════════════════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Set defaults
+    AppState.job.estimateDate = new Date().toISOString().slice(0, 10);
+    AppState.job.estimateNumber = 'EST-' + Date.now().toString().slice(-6);
+    
+    // Create first door
+    AppState.doors.push(createNewDoor());
+    
+    // Populate dropdowns
+    populateBrandDropdown('doorBrand', 'doors');
+    populateBrandDropdown('frameBrand', 'frames');
+    
+    // Render
+    renderTabs();
+    loadDoorToForm();
+});
+</script>
+
+</body>
+</html>
