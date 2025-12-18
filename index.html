@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -523,12 +522,20 @@
             gap: 10px;
         }
 
-        /* Print Styles */
+        /* Print Styles - Premium Persuasive Design */
         @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
             body {
                 background: white;
                 padding: 0;
+                font-family: 'Georgia', 'Times New Roman', serif;
                 font-size: 11pt;
+                line-height: 1.5;
+                color: #1a1a1a;
             }
 
             .no-print {
@@ -553,96 +560,377 @@
                 display: block !important;
             }
 
+            /* Premium Spec Sheet Styles */
             .spec-sheet-print {
-                padding: 20px;
+                padding: 0.5in;
+                max-width: 8.5in;
+                margin: 0 auto;
             }
 
             .spec-sheet-print .print-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
+                padding-bottom: 25px;
+                margin-bottom: 25px;
                 border-bottom: 3px solid #8B0000;
-                padding-bottom: 20px;
-                margin-bottom: 30px;
+            }
+
+            .spec-sheet-print .company-logo-section {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .spec-sheet-print .logo-icon {
+                font-size: 42px;
+                background: linear-gradient(135deg, #8B0000, #DC143C);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
             }
 
             .spec-sheet-print .company-name {
-                font-size: 28pt;
+                font-size: 32pt;
                 font-weight: bold;
                 color: #8B0000;
+                letter-spacing: 3px;
+                font-family: 'Georgia', serif;
             }
 
             .spec-sheet-print .company-tagline {
-                font-size: 10pt;
+                font-size: 9pt;
                 color: #666;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                margin-top: 3px;
             }
 
             .spec-sheet-print .doc-info {
                 text-align: right;
                 font-size: 10pt;
+                line-height: 1.8;
+            }
+
+            .spec-sheet-print .doc-info strong {
+                color: #8B0000;
+            }
+
+            .spec-sheet-print .doc-title {
+                text-align: center;
+                margin: 30px 0;
+            }
+
+            .spec-sheet-print .doc-title h1 {
+                font-size: 18pt;
+                font-weight: normal;
+                color: #1a1a1a;
+                letter-spacing: 4px;
+                text-transform: uppercase;
+                margin: 0;
+                padding: 15px 0;
+                border-top: 1px solid #d1d5db;
+                border-bottom: 1px solid #d1d5db;
+            }
+
+            .spec-sheet-print .trust-banner {
+                display: flex;
+                justify-content: center;
+                gap: 40px;
+                margin: 25px 0;
+                padding: 15px 0;
+            }
+
+            .spec-sheet-print .trust-badge {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 9pt;
+                color: #374151;
+            }
+
+            .spec-sheet-print .trust-badge .icon {
+                font-size: 16pt;
+                color: #8B0000;
             }
 
             .spec-sheet-print .opening-section {
-                margin-bottom: 30px;
+                margin-bottom: 35px;
                 page-break-inside: avoid;
             }
 
-            .spec-sheet-print .opening-title {
-                background: #8B0000;
+            .spec-sheet-print .opening-header {
+                background: linear-gradient(135deg, #8B0000 0%, #a01010 100%);
                 color: white;
-                padding: 10px 15px;
-                font-size: 14pt;
+                padding: 12px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .spec-sheet-print .opening-title {
+                font-size: 12pt;
+                font-weight: bold;
+                letter-spacing: 1px;
+            }
+
+            .spec-sheet-print .opening-qty {
+                background: rgba(255,255,255,0.2);
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-size: 11pt;
                 font-weight: bold;
             }
 
             .spec-sheet-print .spec-table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-top: 15px;
+                margin-top: 0;
             }
 
             .spec-sheet-print .spec-table th {
-                background: #f3f4f6;
-                padding: 8px 12px;
+                background: #f8f9fa;
+                padding: 10px 12px;
                 text-align: left;
-                font-size: 9pt;
+                font-size: 8pt;
                 text-transform: uppercase;
-                border-bottom: 2px solid #d1d5db;
+                letter-spacing: 1px;
+                color: #6b7280;
+                border-bottom: 2px solid #e5e7eb;
+                font-family: -apple-system, sans-serif;
             }
 
             .spec-sheet-print .spec-table td {
-                padding: 10px 12px;
+                padding: 12px;
                 border-bottom: 1px solid #e5e7eb;
                 font-size: 10pt;
+                vertical-align: top;
+            }
+
+            .spec-sheet-print .spec-table tr:last-child td {
+                border-bottom: none;
+            }
+
+            .spec-sheet-print .spec-table .item-name {
+                font-weight: 600;
+                color: #1a1a1a;
+            }
+
+            .spec-sheet-print .spec-table .item-brand {
+                color: #8B0000;
+                font-style: italic;
+            }
+
+            .spec-sheet-print .spec-table .item-details {
+                font-size: 9pt;
+                color: #6b7280;
             }
 
             .spec-sheet-print .spec-table .price-col {
                 text-align: right;
-                font-family: monospace;
+                font-family: 'Courier New', monospace;
+                font-weight: 600;
+            }
+
+            .spec-sheet-print .spec-table tfoot tr {
+                background: #f8f9fa;
+            }
+
+            .spec-sheet-print .spec-table tfoot td {
+                font-weight: bold;
+                border-top: 2px solid #8B0000;
+                padding: 12px;
+            }
+
+            .spec-sheet-print .images-section {
+                margin-top: 20px;
+                padding: 15px;
+                background: #fafafa;
+                border: 1px solid #e5e7eb;
+            }
+
+            .spec-sheet-print .images-section h4 {
+                font-size: 9pt;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #6b7280;
+                margin-bottom: 12px;
+            }
+
+            .spec-sheet-print .images-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .spec-sheet-print .image-item {
+                text-align: center;
+            }
+
+            .spec-sheet-print .image-item img {
+                max-width: 160px;
+                max-height: 120px;
+                border: 1px solid #d1d5db;
+                border-radius: 4px;
+            }
+
+            .spec-sheet-print .image-item p {
+                font-size: 8pt;
+                color: #6b7280;
+                margin-top: 5px;
+            }
+
+            .spec-sheet-print .totals-section {
+                margin: 40px 0;
+                page-break-inside: avoid;
             }
 
             .spec-sheet-print .totals-box {
-                margin-top: 30px;
                 border: 2px solid #1a1a1a;
-                padding: 20px;
+                padding: 0;
+                max-width: 350px;
+                margin-left: auto;
+            }
+
+            .spec-sheet-print .totals-box .total-header {
+                background: #1a1a1a;
+                color: white;
+                padding: 10px 20px;
+                font-size: 10pt;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            .spec-sheet-print .totals-box .total-body {
+                padding: 15px 20px;
+            }
+
+            .spec-sheet-print .totals-box .total-row {
+                display: flex;
+                justify-content: space-between;
+                padding: 8px 0;
+                font-size: 11pt;
+            }
+
+            .spec-sheet-print .totals-box .total-row.grand {
+                border-top: 2px solid #1a1a1a;
+                margin-top: 10px;
+                padding-top: 15px;
+                font-size: 14pt;
+                font-weight: bold;
+            }
+
+            .spec-sheet-print .totals-box .total-value {
+                font-family: 'Courier New', monospace;
+            }
+
+            .spec-sheet-print .guarantee-section {
+                margin: 40px 0;
+                padding: 25px;
+                background: linear-gradient(135deg, #fef9e7 0%, #fff 100%);
+                border: 1px solid #d4af37;
+                border-left: 4px solid #d4af37;
+                page-break-inside: avoid;
+            }
+
+            .spec-sheet-print .guarantee-section h3 {
+                font-size: 12pt;
+                color: #8B0000;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .spec-sheet-print .guarantee-section p {
+                font-size: 10pt;
+                color: #374151;
+                margin: 0;
+                line-height: 1.7;
             }
 
             .spec-sheet-print .signature-section {
                 margin-top: 50px;
+                page-break-inside: avoid;
+            }
+
+            .spec-sheet-print .signature-section h3 {
+                font-size: 11pt;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                color: #6b7280;
+                margin-bottom: 25px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .spec-sheet-print .signature-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 40px;
+                gap: 50px;
+            }
+
+            .spec-sheet-print .sig-block {
+                padding-top: 40px;
             }
 
             .spec-sheet-print .sig-line {
                 border-bottom: 1px solid #1a1a1a;
-                height: 40px;
+                margin-bottom: 8px;
             }
 
             .spec-sheet-print .sig-label {
                 font-size: 9pt;
-                color: #666;
-                margin-top: 5px;
+                color: #6b7280;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            .spec-sheet-print .terms-section {
+                margin-top: 40px;
+                padding-top: 20px;
+                border-top: 1px solid #e5e7eb;
+            }
+
+            .spec-sheet-print .terms-section h4 {
+                font-size: 9pt;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #6b7280;
+                margin-bottom: 10px;
+            }
+
+            .spec-sheet-print .terms-section ul {
+                font-size: 8pt;
+                color: #6b7280;
+                margin: 0;
+                padding-left: 15px;
+                columns: 2;
+                column-gap: 30px;
+            }
+
+            .spec-sheet-print .terms-section li {
+                margin-bottom: 3px;
+            }
+
+            .spec-sheet-print .footer {
+                margin-top: 40px;
+                text-align: center;
+                padding-top: 20px;
+                border-top: 3px solid #8B0000;
+            }
+
+            .spec-sheet-print .footer p {
+                font-size: 10pt;
+                color: #374151;
+                margin: 5px 0;
+            }
+
+            .spec-sheet-print .footer .tagline {
+                font-size: 11pt;
+                font-style: italic;
+                color: #8B0000;
+                margin-top: 10px;
             }
         }
 
@@ -670,6 +958,31 @@
         }
         .btn-add-new:hover {
             background: #15803d;
+        }
+
+        /* Constrained/Disabled Options */
+        select option:disabled {
+            color: #ccc;
+            background: #f9fafb;
+        }
+        
+        select option[disabled] {
+            display: none; /* Hide disabled options completely */
+        }
+        
+        /* Visual indicator for constrained fields */
+        .constrained-field {
+            position: relative;
+        }
+        
+        .constrained-field::after {
+            content: '⚡';
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+            color: #f59e0b;
         }
     </style>
 </head>
@@ -798,7 +1111,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fire Rating</label>
-                        <select id="doorFireRating" onchange="updateDoor()">
+                        <select id="doorFireRating" onchange="updateFireRating()">
                             <option value="None">None</option>
                             <option value="20-min">20 Min</option>
                             <option value="45-min">45 Min</option>
@@ -901,7 +1214,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Frame Material</label>
-                        <select id="frameMaterial" onchange="updateDoor()">
+                        <select id="frameMaterial" onchange="updateFrameMaterial()">
                             <option value="HM-16">HM (Hollow Metal) 16 Ga.</option>
                             <option value="HM-14">HM (Hollow Metal) 14 Ga.</option>
                             <option value="HM-12">HM (Hollow Metal) 12 Ga.</option>
@@ -912,7 +1225,7 @@
                     </div>
                     <div class="form-group">
                         <label>Anchors</label>
-                        <select id="frameAnchors" onchange="updateDoor()">
+                        <select id="frameAnchors" onchange="updateFrameAnchors()">
                             <option value="Masonry-T">Masonry T-Anchor</option>
                             <option value="Masonry-Wire">Masonry Wire Anchor</option>
                             <option value="Steel-Stud">Steel Stud Anchor</option>
@@ -935,7 +1248,7 @@
                     </div>
                     <div class="form-group">
                         <label>Head/Strike Prep</label>
-                        <select id="framePrep" onchange="updateDoor()">
+                        <select id="framePrep" onchange="updateFramePrep()">
                             <option value="STD">Standard (161)</option>
                             <option value="MORTISE">Mortise Lock</option>
                             <option value="DEADBOLT">Deadbolt</option>
@@ -1404,6 +1717,9 @@ function loadDoorToForm() {
     toggleManualEntry('frameBrand', 'frameBrandManual', door.frame.brand === 'Other');
     toggleManualEntry('frameModel', 'frameModelManual', door.frame.model === 'Manual Entry');
     
+    // *** CRITICAL: Apply constraints after loading values ***
+    cascadeConstraints();
+    
     // Hardware
     renderHardwareList();
     
@@ -1487,16 +1803,16 @@ function updateDoorType() {
     
     // Set defaults based on type
     const typeDefaults = {
-        'HM-3HR': { fireRating: '3-hr', brand: 'Ceco Door', model: 'Imperial Series' },
-        'HM-90': { fireRating: '90-min', brand: 'Steelcraft', model: 'L-Series' },
-        'HM-45': { fireRating: '45-min', brand: 'Steelcraft', model: 'L-Series' },
-        'HM-20': { fireRating: '20-min', brand: 'Ceco Door', model: 'Standard Series' },
-        'HM-STD': { fireRating: 'None', brand: 'Ceco Door', model: 'Standard Series' },
-        'RF': { fireRating: 'None', brand: 'Ceco Door', model: 'Custom' },
-        'STC': { fireRating: 'None', brand: 'VT Industries', model: 'VT5000' },
-        'WD-PAINT': { fireRating: 'None', brand: 'Masonite', model: 'Safe N Sound' },
-        'WD-STAIN': { fireRating: 'None', brand: 'VT Industries', model: 'Architectural' },
-        'WD-LAM': { fireRating: 'None', brand: 'Masonite', model: 'Solidoor' }
+        'HM-3HR': { fireRating: '3-hr', brand: 'Ceco Door', model: 'Imperial Series', thickness: '1-3/4' },
+        'HM-90': { fireRating: '90-min', brand: 'Steelcraft', model: 'L-Series', thickness: '1-3/4' },
+        'HM-45': { fireRating: '45-min', brand: 'Steelcraft', model: 'L-Series', thickness: '1-3/4' },
+        'HM-20': { fireRating: '20-min', brand: 'Ceco Door', model: 'Standard Series', thickness: '1-3/4' },
+        'HM-STD': { fireRating: 'None', brand: 'Ceco Door', model: 'Standard Series', thickness: '1-3/4' },
+        'RF': { fireRating: 'None', brand: 'Ceco Door', model: 'Custom', thickness: '1-3/4' },
+        'STC': { fireRating: 'None', brand: 'VT Industries', model: 'VT5000', thickness: '1-3/4' },
+        'WD-PAINT': { fireRating: 'None', brand: 'Masonite', model: 'Safe N Sound', thickness: '1-3/4' },
+        'WD-STAIN': { fireRating: 'None', brand: 'VT Industries', model: 'Architectural', thickness: '1-3/4' },
+        'WD-LAM': { fireRating: 'None', brand: 'Masonite', model: 'Solidoor', thickness: '1-3/4' }
     };
     
     if (typeDefaults[type]) {
@@ -1504,8 +1820,10 @@ function updateDoorType() {
         door.door.fireRating = def.fireRating;
         door.door.brand = def.brand;
         door.door.model = def.model;
+        door.door.thickness = def.thickness;
         
         setVal('doorFireRating', def.fireRating);
+        setVal('doorThickness', def.thickness);
         populateBrandDropdown('doorBrand', 'doors');
         setVal('doorBrand', def.brand);
         populateModelDropdown('doorModel', 'doors', def.brand);
@@ -1515,7 +1833,35 @@ function updateDoorType() {
         toggleManualEntry('doorModel', 'doorModelManual', false);
     }
     
+    // *** CRITICAL: Apply cascading constraints ***
+    cascadeConstraints();
+    
+    // Validate and auto-clear invalid hardware
+    validateAndClearInvalidHardware();
+    
     updateDoor();
+}
+
+/**
+ * Validate hardware items and remove any that are no longer allowed
+ */
+function validateAndClearInvalidHardware() {
+    const door = AppState.doors[AppState.activeIndex];
+    if (!door || !door.hardware) return;
+    
+    const allowedTypes = getAllowedHardwareTypes();
+    let hadInvalidItems = false;
+    
+    // Filter out invalid hardware types
+    door.hardware = door.hardware.filter(hw => {
+        const isAllowed = allowedTypes.includes(hw.type);
+        if (!isAllowed) hadInvalidItems = true;
+        return isAllowed;
+    });
+    
+    if (hadInvalidItems) {
+        renderHardwareList();
+    }
 }
 
 function updateDoorBrand() {
@@ -1585,6 +1931,9 @@ function updateFrameType() {
         toggleManualEntry('frameModel', 'frameModelManual', false);
     }
     
+    // *** CRITICAL: Apply cascading constraints for frame-dependent fields ***
+    cascadeConstraints();
+    
     updateDoor();
 }
 
@@ -1608,6 +1957,53 @@ function updateFrameBrand() {
 function updateFrameModel() {
     const model = getVal('frameModel');
     toggleManualEntry('frameModel', 'frameModelManual', model === 'Manual Entry');
+    updateDoor();
+}
+
+/**
+ * Update fire rating - cascades constraints to frame prep
+ */
+function updateFireRating() {
+    const door = AppState.doors[AppState.activeIndex];
+    if (door) {
+        door.door.fireRating = getVal('doorFireRating');
+    }
+    
+    // Fire rating affects frame prep options
+    cascadeConstraints();
+    updateDoor();
+}
+
+/**
+ * Update frame material with constraint awareness
+ */
+function updateFrameMaterial() {
+    const door = AppState.doors[AppState.activeIndex];
+    if (door) {
+        door.frame.material = getVal('frameMaterial');
+    }
+    updateDoor();
+}
+
+/**
+ * Update frame anchors with constraint awareness
+ */
+function updateFrameAnchors() {
+    const door = AppState.doors[AppState.activeIndex];
+    if (door) {
+        door.frame.anchors = getVal('frameAnchors');
+    }
+    updateDoor();
+}
+
+/**
+ * Update frame prep with constraint awareness
+ */
+function updateFramePrep() {
+    const door = AppState.doors[AppState.activeIndex];
+    if (door) {
+        door.frame.prep = getVal('framePrep');
+    }
     updateDoor();
 }
 
@@ -1635,7 +2031,14 @@ function renderHardwareList() {
         return;
     }
     
-    container.innerHTML = door.hardware.map((hw, idx) => `
+    // Get allowed hardware types based on door type constraint
+    const allowedHardwareTypes = getAllowedHardwareTypes();
+    
+    container.innerHTML = door.hardware.map((hw, idx) => {
+        // Filter hardware catalog to only show allowed types
+        const filteredCatalog = HardwareCatalog.filter(h => allowedHardwareTypes.includes(h.id));
+        
+        return `
         <div class="hardware-item">
             <div class="hardware-item-header">
                 <span class="hardware-item-title">${hw.label || 'Hardware Item'}</span>
@@ -1645,7 +2048,7 @@ function renderHardwareList() {
                 <div class="form-group">
                     <label>Type</label>
                     <select onchange="updateHardwareType(${idx}, this.value)">
-                        ${HardwareCatalog.map(h => `<option value="${h.id}" ${hw.type === h.id ? 'selected' : ''}>${h.label}</option>`).join('')}
+                        ${filteredCatalog.map(h => `<option value="${h.id}" ${hw.type === h.id ? 'selected' : ''}>${h.label}</option>`).join('')}
                     </select>
                 </div>
                 <div class="form-group">
@@ -1688,12 +2091,17 @@ function renderHardwareList() {
                 </div>
             </div>
         </div>
-    `).join('');
+    `}).join('');
 }
 
 function addHardwareItem() {
     const door = AppState.doors[AppState.activeIndex];
-    const defaultItem = HardwareCatalog[0];
+    
+    // Get allowed hardware types based on current door type
+    const allowedTypes = getAllowedHardwareTypes();
+    
+    // Find first allowed item from catalog
+    const defaultItem = HardwareCatalog.find(h => allowedTypes.includes(h.id)) || HardwareCatalog[0];
     
     door.hardware.push({
         type: defaultItem.id,
@@ -1977,18 +2385,53 @@ function getFrameTypeLabel(type) {
 function printSpecSheet() {
     const printContainer = document.getElementById('specSheetPrint');
     let grandTotal = 0;
+    let totalMaterials = 0;
+    let totalLabor = 0;
+    let totalDoorCount = 0;
+    
+    // Calculate totals first
+    AppState.doors.forEach(door => {
+        totalDoorCount += door.quantity;
+    });
     
     let html = `
         <div class="print-header">
-            <div>
-                <div class="company-name">ALOHA DOORS</div>
-                <div class="company-tagline">COMMERCIAL DOORS, GATES & MORE</div>
+            <div class="company-logo-section">
+                <div>
+                    <div class="company-name">ALOHA DOORS</div>
+                    <div class="company-tagline">Commercial Doors, Frames & Hardware</div>
+                </div>
             </div>
             <div class="doc-info">
                 <div><strong>Estimate #:</strong> ${AppState.job.estimateNumber || '—'}</div>
-                <div><strong>Date:</strong> ${AppState.job.estimateDate || new Date().toLocaleDateString()}</div>
-                <div><strong>Customer:</strong> ${AppState.job.customerName || '—'}</div>
-                <div><strong>Job Ref:</strong> ${AppState.job.jobReference || '—'}</div>
+                <div><strong>Date:</strong> ${formatDate(AppState.job.estimateDate) || new Date().toLocaleDateString()}</div>
+                <div><strong>Valid Until:</strong> ${getValidUntilDate()}</div>
+                <div style="margin-top:10px;"><strong>Prepared For:</strong></div>
+                <div>${AppState.job.customerName || 'Valued Customer'}</div>
+                ${AppState.job.jobReference ? `<div style="font-size:9pt; color:#666;">Ref: ${AppState.job.jobReference}</div>` : ''}
+            </div>
+        </div>
+
+        <div class="doc-title">
+            <h1>Project Specification & Estimate</h1>
+        </div>
+
+        <div class="trust-banner">
+            <div class="trust-badge">
+                <span class="icon">✓</span>
+                <span><strong>Licensed & Insured</strong></span>
+            </div>
+            <div class="trust-badge">
+                <span class="icon">★</span>
+                <span><strong>Quality Guaranteed</strong></span>
+            </div>
+            <div class="trust-badge">
+                <span class="icon">🛡</span>
+                <span><strong>Manufacturer Certified</strong></span>
+            </div>
+            <div class="trust-badge">
+                <span class="icon">⏱</span>
+                <span><strong>On-Time Installation</strong></span>
             </div>
         </div>
     `;
@@ -1996,22 +2439,25 @@ function printSpecSheet() {
     AppState.doors.forEach((door, idx) => {
         let doorMaterials = 0;
         let doorLabor = 0;
-        let doorImages = []; // Collect images for this door config
+        let doorImages = [];
         
         const doorSell = calculateSellPrice(door.door.cost, door.door.markup);
         const frameSell = calculateSellPrice(door.frame.cost, door.frame.markup);
         
         html += `
             <div class="opening-section">
-                <div class="opening-title">DOOR CONFIGURATION #${idx + 1} — QTY: ${door.quantity}</div>
+                <div class="opening-header">
+                    <span class="opening-title">Opening ${String(idx + 1).padStart(3, '0')} — ${getOpeningDescription(door)}</span>
+                    <span class="opening-qty">Quantity: ${door.quantity}</span>
+                </div>
                 <table class="spec-table">
                     <thead>
                         <tr>
-                            <th>Item</th>
-                            <th>Brand / Model</th>
-                            <th>Details</th>
-                            <th class="price-col">Material</th>
-                            <th class="price-col">Labor</th>
+                            <th style="width:25%;">Component</th>
+                            <th style="width:25%;">Manufacturer</th>
+                            <th style="width:30%;">Specifications</th>
+                            <th style="width:10%;" class="price-col">Material</th>
+                            <th style="width:10%;" class="price-col">Labor</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2026,17 +2472,20 @@ function printSpecSheet() {
             const doorBrandDisplay = door.door.brand === 'Other' ? door.door.brandManual : door.door.brand;
             const doorModelDisplay = door.door.model === 'Manual Entry' ? door.door.modelManual : door.door.model;
             
-            // Check for door image
             const doorImg = getItemImage('doors', door.door.type);
-            if (doorImg) {
-                doorImages.push({ label: doorTypeLabel, src: doorImg });
-            }
+            if (doorImg) doorImages.push({ label: 'Door Detail', src: doorImg });
             
             html += `
                 <tr>
-                    <td><strong>${doorTypeLabel || 'Door'}</strong></td>
-                    <td>${doorBrandDisplay || '—'} ${doorModelDisplay || ''}</td>
-                    <td>${door.door.width || '?'}" × ${door.door.height || '?'}" × ${door.door.thickness}" | ${door.door.fireRating} | ${door.door.handing} | ${door.door.swing}</td>
+                    <td>
+                        <div class="item-name">DOOR</div>
+                        <div class="item-details">${doorTypeLabel || 'As Specified'}</div>
+                    </td>
+                    <td class="item-brand">${doorBrandDisplay || '—'}${doorModelDisplay ? '<br>' + doorModelDisplay : ''}</td>
+                    <td class="item-details">
+                        Size: ${door.door.width || '—'}" W × ${door.door.height || '—'}" H × ${door.door.thickness}"<br>
+                        Fire Rating: ${door.door.fireRating} | Hand: ${door.door.handing} | ${door.door.swing}
+                    </td>
                     <td class="price-col">${formatCurrency(doorSell)}</td>
                     <td class="price-col">${formatCurrency(door.door.labor || 0)}</td>
                 </tr>
@@ -2052,17 +2501,20 @@ function printSpecSheet() {
             const frameBrandDisplay = door.frame.brand === 'Other' ? door.frame.brandManual : door.frame.brand;
             const frameModelDisplay = door.frame.model === 'Manual Entry' ? door.frame.modelManual : door.frame.model;
             
-            // Check for frame image
             const frameImg = getItemImage('frames', door.frame.type);
-            if (frameImg) {
-                doorImages.push({ label: frameTypeLabel, src: frameImg });
-            }
+            if (frameImg) doorImages.push({ label: 'Frame Detail', src: frameImg });
             
             html += `
                 <tr>
-                    <td><strong>${frameTypeLabel || 'Frame'}</strong></td>
-                    <td>${frameBrandDisplay || '—'} ${frameModelDisplay || ''}</td>
-                    <td>${door.frame.material || ''} | ${door.frame.anchors} | Jamb: ${door.frame.jambDepth || ''} | Prep: ${door.frame.prep || ''}</td>
+                    <td>
+                        <div class="item-name">FRAME</div>
+                        <div class="item-details">${frameTypeLabel || 'As Specified'}</div>
+                    </td>
+                    <td class="item-brand">${frameBrandDisplay || '—'}${frameModelDisplay ? '<br>' + frameModelDisplay : ''}</td>
+                    <td class="item-details">
+                        Material: ${door.frame.material || '—'}<br>
+                        Anchors: ${door.frame.anchors} | Jamb: ${door.frame.jambDepth || '—'} | Prep: ${door.frame.prep || '—'}
+                    </td>
                     <td class="price-col">${formatCurrency(frameSell)}</td>
                     <td class="price-col">${formatCurrency(door.frame.labor || 0)}</td>
                 </tr>
@@ -2079,49 +2531,55 @@ function printSpecSheet() {
             const hwBrandDisplay = hw.brand === 'Other' ? hw.brandManual : hw.brand;
             const hwModelDisplay = hw.model === 'Manual Entry' ? hw.modelManual : hw.model;
             
-            // Check for hardware image
             const hwImg = getItemImage('hardware', hw.type);
-            if (hwImg) {
-                doorImages.push({ label: hw.label || hw.type, src: hwImg });
-            }
+            if (hwImg) doorImages.push({ label: hw.label || hw.type, src: hwImg });
             
             html += `
                 <tr>
-                    <td><strong>${hw.label || hw.type}</strong>${hw.qty > 1 ? ` (×${hw.qty})` : ''}</td>
-                    <td>${hwBrandDisplay || '—'} ${hwModelDisplay || ''}</td>
-                    <td></td>
+                    <td>
+                        <div class="item-name">HARDWARE</div>
+                        <div class="item-details">${hw.label || hw.type}${hw.qty > 1 ? ' (×' + hw.qty + ')' : ''}</div>
+                    </td>
+                    <td class="item-brand">${hwBrandDisplay || '—'}${hwModelDisplay ? '<br>' + hwModelDisplay : ''}</td>
+                    <td class="item-details"></td>
                     <td class="price-col">${formatCurrency(hwSell)}</td>
                     <td class="price-col">${formatCurrency(hwLabor)}</td>
                 </tr>
             `;
         });
         
-        const doorTotal = (doorMaterials + doorLabor) * door.quantity;
-        grandTotal += doorTotal;
+        const openingTotal = (doorMaterials + doorLabor) * door.quantity;
+        grandTotal += openingTotal;
+        totalMaterials += doorMaterials * door.quantity;
+        totalLabor += doorLabor * door.quantity;
         
         html += `
                     </tbody>
                     <tfoot>
-                        <tr style="background:#f3f4f6; font-weight:bold;">
-                            <td colspan="3">Configuration #${idx + 1} Subtotal (×${door.quantity})</td>
+                        <tr>
+                            <td colspan="3" style="text-align:right;">Opening ${String(idx + 1).padStart(3, '0')} Subtotal (×${door.quantity}):</td>
                             <td class="price-col">${formatCurrency(doorMaterials * door.quantity)}</td>
                             <td class="price-col">${formatCurrency(doorLabor * door.quantity)}</td>
                         </tr>
                     </tfoot>
                 </table>
-                ${door.notes ? `<p style="margin-top:10px;font-size:10pt;color:#666;"><strong>Notes:</strong> ${door.notes}</p>` : ''}
         `;
         
-        // Add images section if any images exist
+        // Notes
+        if (door.notes) {
+            html += `<p style="margin-top:10px; padding:10px; background:#fef3c7; border-left:3px solid #f59e0b; font-size:9pt;"><strong>Special Notes:</strong> ${door.notes}</p>`;
+        }
+        
+        // Images
         if (doorImages.length > 0) {
             html += `
-                <div style="margin-top:15px; padding-top:15px; border-top:1px solid #e5e7eb;">
-                    <p style="font-size:10pt; font-weight:bold; margin-bottom:10px;">Reference Images:</p>
-                    <div style="display:flex; flex-wrap:wrap; gap:15px;">
+                <div class="images-section">
+                    <h4>Reference Specifications</h4>
+                    <div class="images-grid">
                         ${doorImages.map(img => `
-                            <div style="text-align:center;">
-                                <img src="${img.src}" style="max-width:180px; max-height:150px; border:1px solid #d1d5db; border-radius:4px;">
-                                <p style="font-size:9pt; color:#666; margin-top:5px;">${img.label}</p>
+                            <div class="image-item">
+                                <img src="${img.src}" alt="${img.label}">
+                                <p>${img.label}</p>
                             </div>
                         `).join('')}
                     </div>
@@ -2132,29 +2590,99 @@ function printSpecSheet() {
         html += `</div>`; // Close opening-section
     });
     
-    // Grand Total
+    // Totals Section
     html += `
-        <div class="totals-box">
-            <div style="display:flex; justify-content:space-between; font-size:14pt;">
-                <span>ESTIMATE TOTAL:</span>
-                <span style="font-weight:bold; font-family:monospace;">${formatCurrency(grandTotal)}</span>
+        <div class="totals-section">
+            <div class="totals-box">
+                <div class="total-header">Investment Summary</div>
+                <div class="total-body">
+                    <div class="total-row">
+                        <span>Total Openings:</span>
+                        <span class="total-value">${totalDoorCount}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Materials:</span>
+                        <span class="total-value">${formatCurrency(totalMaterials)}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Professional Installation:</span>
+                        <span class="total-value">${formatCurrency(totalLabor)}</span>
+                    </div>
+                    <div class="total-row grand">
+                        <span>PROJECT TOTAL:</span>
+                        <span class="total-value">${formatCurrency(grandTotal)}</span>
+                    </div>
+                </div>
             </div>
         </div>
-        
+    `;
+    
+    // Guarantee Section
+    html += `
+        <div class="guarantee-section">
+            <h3>🏆 Our Commitment to Excellence</h3>
+            <p>
+                At Aloha Doors, we stand behind every installation with our comprehensive quality guarantee. 
+                All materials are sourced directly from certified manufacturers and installed by our trained, 
+                experienced technicians. Your satisfaction is our priority — we're not finished until you're 
+                completely satisfied with the results.
+            </p>
+        </div>
+    `;
+    
+    // Signature Section
+    html += `
         <div class="signature-section">
-            <div>
-                <div class="sig-line"></div>
-                <div class="sig-label">Customer Signature</div>
-            </div>
-            <div>
-                <div class="sig-line"></div>
-                <div class="sig-label">Date</div>
+            <h3>Authorization to Proceed</h3>
+            <p style="font-size:10pt; color:#374151; margin-bottom:20px;">
+                By signing below, I authorize Aloha Doors to proceed with the work as specified in this estimate. 
+                I understand that this estimate is valid for 30 days from the date shown above.
+            </p>
+            <div class="signature-grid">
+                <div class="sig-block">
+                    <div class="sig-line"></div>
+                    <div class="sig-label">Customer Signature</div>
+                </div>
+                <div class="sig-block">
+                    <div class="sig-line"></div>
+                    <div class="sig-label">Date</div>
+                </div>
+                <div class="sig-block">
+                    <div class="sig-line"></div>
+                    <div class="sig-label">Printed Name</div>
+                </div>
+                <div class="sig-block">
+                    <div class="sig-line"></div>
+                    <div class="sig-label">Purchase Order # (if applicable)</div>
+                </div>
             </div>
         </div>
-        
-        <p style="margin-top:40px; font-size:9pt; color:#666; text-align:center;">
-            Thank you for choosing Aloha Doors. This estimate is valid for 30 days.
-        </p>
+    `;
+    
+    // Terms Section
+    html += `
+        <div class="terms-section">
+            <h4>Terms & Conditions</h4>
+            <ul>
+                <li>Estimate valid for 30 days from date of issue</li>
+                <li>50% deposit required to schedule installation</li>
+                <li>Balance due upon completion</li>
+                <li>All work performed to applicable building codes</li>
+                <li>Manufacturer warranties apply to all products</li>
+                <li>Installation warranty: 1 year parts and labor</li>
+                <li>Changes to scope may affect pricing</li>
+                <li>Customer responsible for site access and preparation</li>
+            </ul>
+        </div>
+    `;
+    
+    // Footer
+    html += `
+        <div class="footer">
+            <p><strong>ALOHA DOORS</strong> — Commercial Doors, Frames & Hardware</p>
+            <p>Phone: (555) 123-4567 | Email: info@alohadoors.com | License #12345</p>
+            <p class="tagline">"Quality You Can Trust, Service You Deserve"</p>
+        </div>
     `;
     
     printContainer.innerHTML = html;
@@ -2168,6 +2696,36 @@ function printSpecSheet() {
     // Restore
     document.querySelectorAll('.no-print').forEach(el => el.style.display = '');
     printContainer.style.display = 'none';
+}
+
+// Helper functions for print
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function getValidUntilDate() {
+    const date = new Date();
+    date.setDate(date.getDate() + 30);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function getOpeningDescription(door) {
+    let desc = [];
+    if (door.door.width && door.door.height) {
+        desc.push(`${door.door.width}" × ${door.door.height}"`);
+    }
+    if (door.door.fireRating && door.door.fireRating !== 'None') {
+        desc.push(door.door.fireRating + ' Fire');
+    }
+    const doorType = door.door.type === 'OTHER' ? door.door.typeManual : getDoorTypeLabel(door.door.type);
+    if (doorType) {
+        // Get short version
+        const shortType = doorType.split(' - ')[0] || doorType;
+        desc.push(shortType);
+    }
+    return desc.length > 0 ? desc.join(' | ') : 'Door Opening';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -2233,7 +2791,9 @@ function exportJSON() {
         version: '1.0',
         exportDate: new Date().toISOString(),
         job: AppState.job,
-        doors: AppState.doors
+        doors: AppState.doors,
+        brandLibrary: BrandLibrary,
+        imageCatalog: ImageCatalog
     };
     
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -2260,11 +2820,25 @@ function importJSON(event) {
                 AppState.activeIndex = 0;
             }
             
+            // Restore brand library
+            if (data.brandLibrary) {
+                Object.assign(BrandLibrary.doors, data.brandLibrary.doors || {});
+                Object.assign(BrandLibrary.frames, data.brandLibrary.frames || {});
+                Object.assign(BrandLibrary.hardware, data.brandLibrary.hardware || {});
+            }
+            
+            // Restore image catalog
+            if (data.imageCatalog) {
+                Object.assign(ImageCatalog.doors, data.imageCatalog.doors || {});
+                Object.assign(ImageCatalog.frames, data.imageCatalog.frames || {});
+                Object.assign(ImageCatalog.hardware, data.imageCatalog.hardware || {});
+            }
+            
             renderTabs();
             loadDoorToForm();
-            alert('✓ Import successful!');
+            alert('✓ File loaded successfully!');
         } catch (err) {
-            alert('Error importing: ' + err.message);
+            alert('Error loading file: ' + err.message);
         }
     };
     reader.readAsText(file);
@@ -2323,6 +2897,308 @@ const FrameTypeOptions = [
     { id: 'DBL-EGRESS', label: 'Double Egress Frame' },
     { id: 'WRAP', label: 'Wrap-Around Frame (Retrofit)' }
 ];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CONSTRAINT RULES SYSTEM - Cascading Locked Selection
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * RULE TABLE: Defines what options are allowed based on prior selections.
+ * Format: Allowed(ChildField | ParentField = value) = [allowed values]
+ * 
+ * If a value is not in the allowed set, it MUST be disabled/hidden.
+ * If multiple constraints apply, the final set is the INTERSECTION.
+ */
+
+const ConstraintRules = {
+    
+    // ─────────────────────────────────────────────────────────────────────
+    // DOOR TYPE → FIRE RATING
+    // ─────────────────────────────────────────────────────────────────────
+    fireRating: {
+        // Door Type → Allowed Fire Ratings
+        'HM-3HR':    ['3-hr'],
+        'HM-90':     ['90-min', '3-hr'],
+        'HM-45':     ['45-min', '90-min', '3-hr'],
+        'HM-20':     ['20-min', '45-min', '90-min', '3-hr'],
+        'HM-STD':    ['None', '20-min', '45-min', '90-min'],
+        'RF':        ['None', '20-min', '45-min', '90-min', '3-hr'],
+        'STC':       ['None', '20-min', '45-min', '90-min'],
+        'WD-PAINT':  ['None', '20-min', '45-min', '60-min', '90-min'],
+        'WD-STAIN':  ['None', '20-min', '45-min', '60-min', '90-min'],
+        'WD-LAM':    ['None', '20-min', '45-min'],
+        'OTHER':     ['None', '20-min', '45-min', '60-min', '90-min', '3-hr'],
+        '_default':  ['None', '20-min', '45-min', '60-min', '90-min', '3-hr']
+    },
+    
+    // ─────────────────────────────────────────────────────────────────────
+    // DOOR TYPE → ALLOWED FRAME TYPES
+    // ─────────────────────────────────────────────────────────────────────
+    frameType: {
+        // HM Doors can use all HM frames
+        'HM-3HR':    ['KD-DW-14', 'KD-MASONRY', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'DBL-EGRESS', 'OTHER'],
+        'HM-90':     ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'ADJ', 'DBL-EGRESS', 'WRAP', 'OTHER'],
+        'HM-45':     ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'ADJ', 'DBL-EGRESS', 'WRAP', 'OTHER'],
+        'HM-20':     ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'ADJ', 'CASED', 'DBL-EGRESS', 'WRAP', 'OTHER'],
+        'HM-STD':    ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'DUTCH', 'ADJ', 'CASED', 'DBL-EGRESS', 'WRAP', 'OTHER'],
+        // Specialty doors
+        'RF':        ['WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'OTHER'],
+        'STC':       ['KD-DW-14', 'WLD-DW', 'WLD-MASONRY', 'SINGLE', 'PAIR', 'OTHER'],
+        // Wood doors - no welded HM frames typically
+        'WD-PAINT':  ['KD-DW-16', 'KD-DW-14', 'KD-EXIST', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'DUTCH', 'ADJ', 'CASED', 'WRAP', 'OTHER'],
+        'WD-STAIN':  ['KD-DW-16', 'KD-DW-14', 'KD-EXIST', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'DUTCH', 'ADJ', 'CASED', 'WRAP', 'OTHER'],
+        'WD-LAM':    ['KD-DW-16', 'KD-DW-14', 'KD-EXIST', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'ADJ', 'CASED', 'WRAP', 'OTHER'],
+        'OTHER':     ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'DUTCH', 'ADJ', 'CASED', 'DBL-EGRESS', 'WRAP', 'OTHER'],
+        '_default':  ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'DUTCH', 'ADJ', 'CASED', 'DBL-EGRESS', 'WRAP', 'OTHER']
+    },
+    
+    // ─────────────────────────────────────────────────────────────────────
+    // FRAME TYPE → ALLOWED FRAME MATERIALS
+    // ─────────────────────────────────────────────────────────────────────
+    frameMaterial: {
+        'KD-DW-16':     ['HM-16'],
+        'KD-DW-14':     ['HM-14'],
+        'KD-MASONRY':   ['HM-14', 'HM-12'],
+        'KD-EXIST':     ['HM-16', 'HM-14'],
+        'WLD-DW':       ['HM-16', 'HM-14'],
+        'WLD-MASONRY':  ['HM-14', 'HM-12'],
+        'WLD-CONCRETE': ['HM-12'],
+        'SINGLE':       ['HM-16', 'HM-14', 'HM-12', 'WD', 'AL', 'SS'],
+        'PAIR':         ['HM-16', 'HM-14', 'HM-12', 'WD', 'AL', 'SS'],
+        'SL-1':         ['HM-16', 'HM-14', 'WD', 'AL'],
+        'SL-2':         ['HM-16', 'HM-14', 'WD', 'AL'],
+        'BORROW':       ['HM-16', 'HM-14', 'AL'],
+        'TRANSOM':      ['HM-16', 'HM-14', 'WD', 'AL'],
+        'DUTCH':        ['HM-16', 'HM-14', 'WD'],
+        'ADJ':          ['HM-16', 'HM-14'],
+        'CASED':        ['HM-16', 'WD'],
+        'DBL-EGRESS':   ['HM-16', 'HM-14', 'HM-12'],
+        'WRAP':         ['HM-16', 'HM-14'],
+        'OTHER':        ['HM-16', 'HM-14', 'HM-12', 'WD', 'AL', 'SS'],
+        '_default':     ['HM-16', 'HM-14', 'HM-12', 'WD', 'AL', 'SS']
+    },
+    
+    // ─────────────────────────────────────────────────────────────────────
+    // FRAME TYPE → ALLOWED ANCHORS
+    // ─────────────────────────────────────────────────────────────────────
+    frameAnchors: {
+        'KD-DW-16':     ['Steel-Stud', 'Wood-Stud', 'Compression', 'Core-Board'],
+        'KD-DW-14':     ['Steel-Stud', 'Wood-Stud', 'Compression', 'Core-Board'],
+        'KD-MASONRY':   ['Masonry-T', 'Masonry-Wire'],
+        'KD-EXIST':     ['Existing', 'Compression'],
+        'WLD-DW':       ['Steel-Stud', 'Wood-Stud'],
+        'WLD-MASONRY':  ['Masonry-T', 'Masonry-Wire'],
+        'WLD-CONCRETE': ['Masonry-T', 'Masonry-Wire'],
+        'SINGLE':       ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Masonry-Wire', 'Compression', 'Core-Board', 'Existing'],
+        'PAIR':         ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Masonry-Wire', 'Compression', 'Core-Board', 'Existing'],
+        'SL-1':         ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Compression'],
+        'SL-2':         ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Compression'],
+        'BORROW':       ['Steel-Stud', 'Wood-Stud'],
+        'TRANSOM':      ['Steel-Stud', 'Wood-Stud', 'Masonry-T'],
+        'DUTCH':        ['Steel-Stud', 'Wood-Stud'],
+        'ADJ':          ['Steel-Stud', 'Wood-Stud', 'Compression'],
+        'CASED':        ['Steel-Stud', 'Wood-Stud'],
+        'DBL-EGRESS':   ['Steel-Stud', 'Wood-Stud', 'Masonry-T'],
+        'WRAP':         ['Existing', 'Compression'],
+        'OTHER':        ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Masonry-Wire', 'Compression', 'Core-Board', 'Existing'],
+        '_default':     ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Masonry-Wire', 'Compression', 'Core-Board', 'Existing']
+    },
+    
+    // ─────────────────────────────────────────────────────────────────────
+    // DOOR TYPE → ALLOWED HARDWARE TYPES
+    // ─────────────────────────────────────────────────────────────────────
+    hardwareType: {
+        // Fire-rated doors require specific hardware
+        'HM-3HR':    ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
+        'HM-90':     ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
+        'HM-45':     ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
+        'HM-20':     ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
+        'HM-STD':    ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
+        'RF':        ['lockset', 'closer', 'hinges', 'cylinder', 'threshold', 'stop', 'other'],
+        'STC':       ['lockset', 'closer', 'hinges', 'cylinder', 'threshold', 'stop', 'other'],
+        'WD-PAINT':  ['lockset', 'panic-rim', 'panic-cvr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'cylinder', 'threshold', 'stop', 'other'],
+        'WD-STAIN':  ['lockset', 'panic-rim', 'panic-cvr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'cylinder', 'threshold', 'stop', 'other'],
+        'WD-LAM':    ['lockset', 'closer', 'hinges', 'cylinder', 'threshold', 'stop', 'other'],
+        'OTHER':     ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
+        '_default':  ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other']
+    },
+    
+    // ─────────────────────────────────────────────────────────────────────
+    // DOOR TYPE → ALLOWED THICKNESS
+    // ─────────────────────────────────────────────────────────────────────
+    doorThickness: {
+        'HM-3HR':    ['1-3/4', '2'],
+        'HM-90':     ['1-3/4', '2'],
+        'HM-45':     ['1-3/4'],
+        'HM-20':     ['1-3/4'],
+        'HM-STD':    ['1-3/4'],
+        'RF':        ['1-3/4', '2'],
+        'STC':       ['1-3/4', '2'],
+        'WD-PAINT':  ['1-3/8', '1-3/4'],
+        'WD-STAIN':  ['1-3/8', '1-3/4'],
+        'WD-LAM':    ['1-3/8', '1-3/4'],
+        'OTHER':     ['1-3/8', '1-3/4', '2'],
+        '_default':  ['1-3/8', '1-3/4', '2']
+    },
+    
+    // ─────────────────────────────────────────────────────────────────────
+    // FIRE RATING → ALLOWED FRAME PREP
+    // ─────────────────────────────────────────────────────────────────────
+    framePrep: {
+        '3-hr':     ['STD', 'MORTISE', 'NONE'],
+        '90-min':   ['STD', 'MORTISE', 'DEADBOLT', 'NONE'],
+        '60-min':   ['STD', 'MORTISE', 'DEADBOLT', 'ELECTRIC', 'NONE'],
+        '45-min':   ['STD', 'MORTISE', 'DEADBOLT', 'ELECTRIC', 'NONE'],
+        '20-min':   ['STD', 'MORTISE', 'DEADBOLT', 'ELECTRIC', 'NONE'],
+        'None':     ['STD', 'MORTISE', 'DEADBOLT', 'ELECTRIC', 'NONE'],
+        '_default': ['STD', 'MORTISE', 'DEADBOLT', 'ELECTRIC', 'NONE']
+    }
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CONSTRAINT ENGINE FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Get allowed values for a child field given the current state
+ * @param {string} childField - The field to get allowed values for
+ * @param {object} state - Current selection state {doorType, fireRating, frameType, etc.}
+ * @returns {string[]} - Array of allowed values
+ */
+function getAllowedValues(childField, state) {
+    const rules = ConstraintRules[childField];
+    if (!rules) return null; // No constraints for this field
+    
+    // Determine which parent field controls this child
+    let parentValue = null;
+    
+    switch (childField) {
+        case 'fireRating':
+        case 'frameType':
+        case 'hardwareType':
+        case 'doorThickness':
+            parentValue = state.doorType;
+            break;
+        case 'frameMaterial':
+        case 'frameAnchors':
+            parentValue = state.frameType;
+            break;
+        case 'framePrep':
+            parentValue = state.fireRating;
+            break;
+    }
+    
+    // Get allowed values from rules
+    if (parentValue && rules[parentValue]) {
+        return rules[parentValue];
+    }
+    
+    // Return default if no specific rule or no parent selected
+    return rules['_default'] || null;
+}
+
+/**
+ * Check if a value is allowed for a field given current state
+ */
+function isValueAllowed(field, value, state) {
+    const allowed = getAllowedValues(field, state);
+    if (!allowed) return true; // No constraints
+    return allowed.includes(value);
+}
+
+/**
+ * Apply constraints to a select element - disable invalid options
+ * @param {string} selectId - ID of the select element
+ * @param {string} fieldName - Name of the constraint field
+ * @param {object} state - Current selection state
+ */
+function applyConstraints(selectId, fieldName, state) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+    
+    const allowed = getAllowedValues(fieldName, state);
+    if (!allowed) return; // No constraints for this field
+    
+    const options = select.querySelectorAll('option');
+    let currentValueAllowed = false;
+    let firstAllowedValue = null;
+    
+    options.forEach(option => {
+        if (option.value === '' || option.value === 'OTHER') {
+            // Always allow blank and "Other" options
+            option.disabled = false;
+            option.style.display = '';
+            return;
+        }
+        
+        const isAllowed = allowed.includes(option.value);
+        option.disabled = !isAllowed;
+        option.style.display = isAllowed ? '' : 'none';
+        
+        if (isAllowed && !firstAllowedValue) {
+            firstAllowedValue = option.value;
+        }
+        
+        if (isAllowed && option.value === select.value) {
+            currentValueAllowed = true;
+        }
+    });
+    
+    // Auto-correction: If current value is now invalid, clear or reset
+    if (select.value && !currentValueAllowed) {
+        select.value = firstAllowedValue || '';
+        // Trigger change event to cascade
+        select.dispatchEvent(new Event('change'));
+    }
+}
+
+/**
+ * Get current constraint state from the active door
+ */
+function getCurrentConstraintState() {
+    const door = AppState.doors[AppState.activeIndex];
+    if (!door) return {};
+    
+    return {
+        doorType: door.door.type,
+        fireRating: door.door.fireRating,
+        frameType: door.frame.type,
+        frameMaterial: door.frame.material,
+        thickness: door.door.thickness
+    };
+}
+
+/**
+ * Apply all constraints based on current state - CASCADE in order
+ */
+function cascadeConstraints() {
+    const state = getCurrentConstraintState();
+    
+    // Order matters! Apply in dependency order (parents before children)
+    
+    // Level 1: Door Type affects these
+    applyConstraints('doorFireRating', 'fireRating', state);
+    applyConstraints('doorThickness', 'doorThickness', state);
+    applyConstraints('frameType', 'frameType', state);
+    
+    // Refresh state after potential auto-corrections
+    const updatedState = getCurrentConstraintState();
+    
+    // Level 2: Frame Type and Fire Rating affect these
+    applyConstraints('frameMaterial', 'frameMaterial', updatedState);
+    applyConstraints('frameAnchors', 'frameAnchors', updatedState);
+    applyConstraints('framePrep', 'framePrep', updatedState);
+    
+    // Hardware constraints are applied per-item in renderHardwareList
+}
+
+/**
+ * Get allowed hardware types for current door type
+ */
+function getAllowedHardwareTypes() {
+    const state = getCurrentConstraintState();
+    return getAllowedValues('hardwareType', state) || HardwareCatalog.map(h => h.id);
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // IMAGE MANAGER FUNCTIONS
