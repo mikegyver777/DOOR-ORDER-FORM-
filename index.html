@@ -2904,155 +2904,17 @@ const FrameTypeOptions = [
 
 /**
  * RULE TABLE: Defines what options are allowed based on prior selections.
- * Format: Allowed(ChildField | ParentField = value) = [allowed values]
  * 
- * If a value is not in the allowed set, it MUST be disabled/hidden.
- * If multiple constraints apply, the final set is the INTERSECTION.
+ * VERIFIED CONSTRAINTS:
+ * - Brand → Model (enforced via BrandLibrary dropdown population)
+ * 
+ * NO OTHER CONSTRAINTS ARE APPLIED - all combinations are allowed
+ * until verified rules are provided.
  */
 
 const ConstraintRules = {
-    
-    // ─────────────────────────────────────────────────────────────────────
-    // DOOR TYPE → FIRE RATING
-    // ─────────────────────────────────────────────────────────────────────
-    fireRating: {
-        // Door Type → Allowed Fire Ratings
-        'HM-3HR':    ['3-hr'],
-        'HM-90':     ['90-min', '3-hr'],
-        'HM-45':     ['45-min', '90-min', '3-hr'],
-        'HM-20':     ['20-min', '45-min', '90-min', '3-hr'],
-        'HM-STD':    ['None', '20-min', '45-min', '90-min'],
-        'RF':        ['None', '20-min', '45-min', '90-min', '3-hr'],
-        'STC':       ['None', '20-min', '45-min', '90-min'],
-        'WD-PAINT':  ['None', '20-min', '45-min', '60-min', '90-min'],
-        'WD-STAIN':  ['None', '20-min', '45-min', '60-min', '90-min'],
-        'WD-LAM':    ['None', '20-min', '45-min'],
-        'OTHER':     ['None', '20-min', '45-min', '60-min', '90-min', '3-hr'],
-        '_default':  ['None', '20-min', '45-min', '60-min', '90-min', '3-hr']
-    },
-    
-    // ─────────────────────────────────────────────────────────────────────
-    // DOOR TYPE → ALLOWED FRAME TYPES
-    // ─────────────────────────────────────────────────────────────────────
-    frameType: {
-        // HM Doors can use all HM frames
-        'HM-3HR':    ['KD-DW-14', 'KD-MASONRY', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'DBL-EGRESS', 'OTHER'],
-        'HM-90':     ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'ADJ', 'DBL-EGRESS', 'WRAP', 'OTHER'],
-        'HM-45':     ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'ADJ', 'DBL-EGRESS', 'WRAP', 'OTHER'],
-        'HM-20':     ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'ADJ', 'CASED', 'DBL-EGRESS', 'WRAP', 'OTHER'],
-        'HM-STD':    ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'DUTCH', 'ADJ', 'CASED', 'DBL-EGRESS', 'WRAP', 'OTHER'],
-        // Specialty doors
-        'RF':        ['WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'OTHER'],
-        'STC':       ['KD-DW-14', 'WLD-DW', 'WLD-MASONRY', 'SINGLE', 'PAIR', 'OTHER'],
-        // Wood doors - no welded HM frames typically
-        'WD-PAINT':  ['KD-DW-16', 'KD-DW-14', 'KD-EXIST', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'DUTCH', 'ADJ', 'CASED', 'WRAP', 'OTHER'],
-        'WD-STAIN':  ['KD-DW-16', 'KD-DW-14', 'KD-EXIST', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'DUTCH', 'ADJ', 'CASED', 'WRAP', 'OTHER'],
-        'WD-LAM':    ['KD-DW-16', 'KD-DW-14', 'KD-EXIST', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'ADJ', 'CASED', 'WRAP', 'OTHER'],
-        'OTHER':     ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'DUTCH', 'ADJ', 'CASED', 'DBL-EGRESS', 'WRAP', 'OTHER'],
-        '_default':  ['KD-DW-16', 'KD-DW-14', 'KD-MASONRY', 'KD-EXIST', 'WLD-DW', 'WLD-MASONRY', 'WLD-CONCRETE', 'SINGLE', 'PAIR', 'SL-1', 'SL-2', 'BORROW', 'TRANSOM', 'DUTCH', 'ADJ', 'CASED', 'DBL-EGRESS', 'WRAP', 'OTHER']
-    },
-    
-    // ─────────────────────────────────────────────────────────────────────
-    // FRAME TYPE → ALLOWED FRAME MATERIALS
-    // ─────────────────────────────────────────────────────────────────────
-    frameMaterial: {
-        'KD-DW-16':     ['HM-16'],
-        'KD-DW-14':     ['HM-14'],
-        'KD-MASONRY':   ['HM-14', 'HM-12'],
-        'KD-EXIST':     ['HM-16', 'HM-14'],
-        'WLD-DW':       ['HM-16', 'HM-14'],
-        'WLD-MASONRY':  ['HM-14', 'HM-12'],
-        'WLD-CONCRETE': ['HM-12'],
-        'SINGLE':       ['HM-16', 'HM-14', 'HM-12', 'WD', 'AL', 'SS'],
-        'PAIR':         ['HM-16', 'HM-14', 'HM-12', 'WD', 'AL', 'SS'],
-        'SL-1':         ['HM-16', 'HM-14', 'WD', 'AL'],
-        'SL-2':         ['HM-16', 'HM-14', 'WD', 'AL'],
-        'BORROW':       ['HM-16', 'HM-14', 'AL'],
-        'TRANSOM':      ['HM-16', 'HM-14', 'WD', 'AL'],
-        'DUTCH':        ['HM-16', 'HM-14', 'WD'],
-        'ADJ':          ['HM-16', 'HM-14'],
-        'CASED':        ['HM-16', 'WD'],
-        'DBL-EGRESS':   ['HM-16', 'HM-14', 'HM-12'],
-        'WRAP':         ['HM-16', 'HM-14'],
-        'OTHER':        ['HM-16', 'HM-14', 'HM-12', 'WD', 'AL', 'SS'],
-        '_default':     ['HM-16', 'HM-14', 'HM-12', 'WD', 'AL', 'SS']
-    },
-    
-    // ─────────────────────────────────────────────────────────────────────
-    // FRAME TYPE → ALLOWED ANCHORS
-    // ─────────────────────────────────────────────────────────────────────
-    frameAnchors: {
-        'KD-DW-16':     ['Steel-Stud', 'Wood-Stud', 'Compression', 'Core-Board'],
-        'KD-DW-14':     ['Steel-Stud', 'Wood-Stud', 'Compression', 'Core-Board'],
-        'KD-MASONRY':   ['Masonry-T', 'Masonry-Wire'],
-        'KD-EXIST':     ['Existing', 'Compression'],
-        'WLD-DW':       ['Steel-Stud', 'Wood-Stud'],
-        'WLD-MASONRY':  ['Masonry-T', 'Masonry-Wire'],
-        'WLD-CONCRETE': ['Masonry-T', 'Masonry-Wire'],
-        'SINGLE':       ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Masonry-Wire', 'Compression', 'Core-Board', 'Existing'],
-        'PAIR':         ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Masonry-Wire', 'Compression', 'Core-Board', 'Existing'],
-        'SL-1':         ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Compression'],
-        'SL-2':         ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Compression'],
-        'BORROW':       ['Steel-Stud', 'Wood-Stud'],
-        'TRANSOM':      ['Steel-Stud', 'Wood-Stud', 'Masonry-T'],
-        'DUTCH':        ['Steel-Stud', 'Wood-Stud'],
-        'ADJ':          ['Steel-Stud', 'Wood-Stud', 'Compression'],
-        'CASED':        ['Steel-Stud', 'Wood-Stud'],
-        'DBL-EGRESS':   ['Steel-Stud', 'Wood-Stud', 'Masonry-T'],
-        'WRAP':         ['Existing', 'Compression'],
-        'OTHER':        ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Masonry-Wire', 'Compression', 'Core-Board', 'Existing'],
-        '_default':     ['Steel-Stud', 'Wood-Stud', 'Masonry-T', 'Masonry-Wire', 'Compression', 'Core-Board', 'Existing']
-    },
-    
-    // ─────────────────────────────────────────────────────────────────────
-    // DOOR TYPE → ALLOWED HARDWARE TYPES
-    // ─────────────────────────────────────────────────────────────────────
-    hardwareType: {
-        // Fire-rated doors require specific hardware
-        'HM-3HR':    ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
-        'HM-90':     ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
-        'HM-45':     ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
-        'HM-20':     ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
-        'HM-STD':    ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
-        'RF':        ['lockset', 'closer', 'hinges', 'cylinder', 'threshold', 'stop', 'other'],
-        'STC':       ['lockset', 'closer', 'hinges', 'cylinder', 'threshold', 'stop', 'other'],
-        'WD-PAINT':  ['lockset', 'panic-rim', 'panic-cvr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'cylinder', 'threshold', 'stop', 'other'],
-        'WD-STAIN':  ['lockset', 'panic-rim', 'panic-cvr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'cylinder', 'threshold', 'stop', 'other'],
-        'WD-LAM':    ['lockset', 'closer', 'hinges', 'cylinder', 'threshold', 'stop', 'other'],
-        'OTHER':     ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other'],
-        '_default':  ['lockset', 'panic-rim', 'panic-cvr', 'panic-svr', 'panic-trim', 'closer', 'hinges', 'flush-manual', 'flush-auto', 'cylinder', 'threshold', 'stop', 'other']
-    },
-    
-    // ─────────────────────────────────────────────────────────────────────
-    // DOOR TYPE → ALLOWED THICKNESS
-    // ─────────────────────────────────────────────────────────────────────
-    doorThickness: {
-        'HM-3HR':    ['1-3/4', '2'],
-        'HM-90':     ['1-3/4', '2'],
-        'HM-45':     ['1-3/4'],
-        'HM-20':     ['1-3/4'],
-        'HM-STD':    ['1-3/4'],
-        'RF':        ['1-3/4', '2'],
-        'STC':       ['1-3/4', '2'],
-        'WD-PAINT':  ['1-3/8', '1-3/4'],
-        'WD-STAIN':  ['1-3/8', '1-3/4'],
-        'WD-LAM':    ['1-3/8', '1-3/4'],
-        'OTHER':     ['1-3/8', '1-3/4', '2'],
-        '_default':  ['1-3/8', '1-3/4', '2']
-    },
-    
-    // ─────────────────────────────────────────────────────────────────────
-    // FIRE RATING → ALLOWED FRAME PREP
-    // ─────────────────────────────────────────────────────────────────────
-    framePrep: {
-        '3-hr':     ['STD', 'MORTISE', 'NONE'],
-        '90-min':   ['STD', 'MORTISE', 'DEADBOLT', 'NONE'],
-        '60-min':   ['STD', 'MORTISE', 'DEADBOLT', 'ELECTRIC', 'NONE'],
-        '45-min':   ['STD', 'MORTISE', 'DEADBOLT', 'ELECTRIC', 'NONE'],
-        '20-min':   ['STD', 'MORTISE', 'DEADBOLT', 'ELECTRIC', 'NONE'],
-        'None':     ['STD', 'MORTISE', 'DEADBOLT', 'ELECTRIC', 'NONE'],
-        '_default': ['STD', 'MORTISE', 'DEADBOLT', 'ELECTRIC', 'NONE']
-    }
+    // No guessed rules - all options available
+    // Add verified rules here when provided
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -3061,95 +2923,27 @@ const ConstraintRules = {
 
 /**
  * Get allowed values for a child field given the current state
- * @param {string} childField - The field to get allowed values for
- * @param {object} state - Current selection state {doorType, fireRating, frameType, etc.}
- * @returns {string[]} - Array of allowed values
+ * Returns null if no constraints (all options allowed)
  */
 function getAllowedValues(childField, state) {
     const rules = ConstraintRules[childField];
     if (!rules) return null; // No constraints for this field
-    
-    // Determine which parent field controls this child
-    let parentValue = null;
-    
-    switch (childField) {
-        case 'fireRating':
-        case 'frameType':
-        case 'hardwareType':
-        case 'doorThickness':
-            parentValue = state.doorType;
-            break;
-        case 'frameMaterial':
-        case 'frameAnchors':
-            parentValue = state.frameType;
-            break;
-        case 'framePrep':
-            parentValue = state.fireRating;
-            break;
-    }
-    
-    // Get allowed values from rules
-    if (parentValue && rules[parentValue]) {
-        return rules[parentValue];
-    }
-    
-    // Return default if no specific rule or no parent selected
-    return rules['_default'] || null;
+    return null; // No constraints applied
 }
 
 /**
  * Check if a value is allowed for a field given current state
  */
 function isValueAllowed(field, value, state) {
-    const allowed = getAllowedValues(field, state);
-    if (!allowed) return true; // No constraints
-    return allowed.includes(value);
+    return true; // All values allowed until verified rules provided
 }
 
 /**
- * Apply constraints to a select element - disable invalid options
- * @param {string} selectId - ID of the select element
- * @param {string} fieldName - Name of the constraint field
- * @param {object} state - Current selection state
+ * Apply constraints to a select element - currently no restrictions
  */
 function applyConstraints(selectId, fieldName, state) {
-    const select = document.getElementById(selectId);
-    if (!select) return;
-    
-    const allowed = getAllowedValues(fieldName, state);
-    if (!allowed) return; // No constraints for this field
-    
-    const options = select.querySelectorAll('option');
-    let currentValueAllowed = false;
-    let firstAllowedValue = null;
-    
-    options.forEach(option => {
-        if (option.value === '' || option.value === 'OTHER') {
-            // Always allow blank and "Other" options
-            option.disabled = false;
-            option.style.display = '';
-            return;
-        }
-        
-        const isAllowed = allowed.includes(option.value);
-        option.disabled = !isAllowed;
-        option.style.display = isAllowed ? '' : 'none';
-        
-        if (isAllowed && !firstAllowedValue) {
-            firstAllowedValue = option.value;
-        }
-        
-        if (isAllowed && option.value === select.value) {
-            currentValueAllowed = true;
-        }
-    });
-    
-    // Auto-correction: If current value is now invalid, clear or reset
-    if (select.value && !currentValueAllowed) {
-        select.value = firstAllowedValue || '';
-        // Trigger change event to cascade
-        select.dispatchEvent(new Event('change'));
-    }
+    // No constraints applied - all options remain enabled
+    return;
 }
 
 /**
@@ -3169,35 +2963,20 @@ function getCurrentConstraintState() {
 }
 
 /**
- * Apply all constraints based on current state - CASCADE in order
+ * Apply all constraints - currently passes through (no restrictions)
  */
 function cascadeConstraints() {
-    const state = getCurrentConstraintState();
-    
-    // Order matters! Apply in dependency order (parents before children)
-    
-    // Level 1: Door Type affects these
-    applyConstraints('doorFireRating', 'fireRating', state);
-    applyConstraints('doorThickness', 'doorThickness', state);
-    applyConstraints('frameType', 'frameType', state);
-    
-    // Refresh state after potential auto-corrections
-    const updatedState = getCurrentConstraintState();
-    
-    // Level 2: Frame Type and Fire Rating affect these
-    applyConstraints('frameMaterial', 'frameMaterial', updatedState);
-    applyConstraints('frameAnchors', 'frameAnchors', updatedState);
-    applyConstraints('framePrep', 'framePrep', updatedState);
-    
-    // Hardware constraints are applied per-item in renderHardwareList
+    // No constraints applied until verified rules are provided
+    // Brand → Model is already enforced via BrandLibrary dropdown population
+    return;
 }
 
 /**
  * Get allowed hardware types for current door type
+ * Returns all hardware types (no restrictions)
  */
 function getAllowedHardwareTypes() {
-    const state = getCurrentConstraintState();
-    return getAllowedValues('hardwareType', state) || HardwareCatalog.map(h => h.id);
+    return HardwareCatalog.map(h => h.id);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
